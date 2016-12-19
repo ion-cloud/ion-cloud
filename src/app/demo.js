@@ -19,8 +19,7 @@ export function demo(){
     size: 400,
     density: 200,
     iterations: 300,
-    callback: function(){
-      console.log('callback called');
+    callback: ()=>{
       scene.animate('laser',{
         startX: -250,
         startY: -250,
@@ -31,7 +30,7 @@ export function demo(){
     }
   });
   scene.draw();
-  scene.clearScene=function(){
+  scene.clearScene=()=>{
     // Clear screen
     ctx.fillStyle='#000';
     ctx.fillRect(0,0,v.w,v.h);
@@ -40,7 +39,7 @@ export function demo(){
     ctx.fillStyle='rgba(10,80,10,0.7)';
     ctx.fillRect(0,v.h/4*3,v.w,v.h/4);
   };
-  setInterval(function(){
+  setInterval(()=>{
     if(scene.camera.dx===0){
       scene.camera.x--;
     }else{

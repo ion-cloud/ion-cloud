@@ -6,7 +6,7 @@ export function flame(name,parameters){
 
   startX = startX||0;
   startY = startY||0;
-  width = width||20,
+  width = width||20;
   height = height||100;
   flame.states = ['initial'];
   flame.clear = false;
