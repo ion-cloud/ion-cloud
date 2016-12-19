@@ -4,9 +4,7 @@ import uglifyWebpack from 'webpack/lib/optimize/UglifyJsPlugin';
 export default {
   entry:{
     app: [
-      './src/app/vendor/easel.js',
-      './src/app/vendor/ion.js',
-      './src/app/vendor/ionCloud.js'
+      './src/app/vendor/index.js'
     ],
   },
 //  devtool: 'source-map',
@@ -21,7 +19,8 @@ export default {
   output:{
     path: './',
     filename:'index.js',
-    libraryTarget: 'this',
+    umdNamedDefine: true,
+    libraryTarget: 'umd',
     library: 'ion'
   },
   module:{
