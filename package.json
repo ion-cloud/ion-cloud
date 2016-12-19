@@ -20,8 +20,8 @@
     "build:assets": "cp -rf src/assets/* ./dist",
     "build": "npm run build:clean && npm run build:assets",
     "prestart": "npm run build",
-    "start": "node ./node_modules/webpack/bin/webpack.js --config ./config.babel.js",
-    "prepublisher": "node_modules/babel-cli/bin/babel.js src/app/vendor/*.js --out-file index.js"
+    "start": "node ./node_modules/webpack/bin/webpack.js --config ./demo.babel.js",
+    "prepublisher": "node ./node_modules/webpack/bin/webpack.js --config ./library.babel.js"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.1",
