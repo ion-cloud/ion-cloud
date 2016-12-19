@@ -21,7 +21,7 @@
     "build": "npm run build:clean && npm run build:assets",
     "prestart": "npm run build",
     "start": "node ./node_modules/webpack/bin/webpack.js --config ./demo.babel.js",
-    "prepublisher": "node ./node_modules/webpack/bin/webpack.js --config ./library.babel.js"
+    "prepublish": "node ./node_modules/webpack/bin/webpack.js --config ./library.babel.js"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.1",
