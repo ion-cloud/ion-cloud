@@ -21,7 +21,8 @@ export default {
   output:{
     path: './',
     filename:'index.js',
-    libraryTarget: 'var',
+    umdNamedDefine: true,
+    libraryTarget: 'umd',
     library: 'ion'
   },
   module:{
