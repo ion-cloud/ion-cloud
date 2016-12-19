@@ -1,7 +1,7 @@
 {
-  "name": "space-invaders",
+  "name": "ion-cloud",
   "version": "0.1.0",
-  "description": "Space Invaders",
+  "description": "Ion Cloud Particle Engine",
   "license": "MIT",
   "main": "gulpfile.babel.js",
   "author": {
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Nathaniel Inman/space-invaders.git"
+    "url": "git://github.com/Nathaniel Inman/ion-cloud.git"
   },
   "bugs": {
-    "url": "https://github.com/Nathaniel Inman/space-invaders/issues"
+    "url": "https://github.com/Nathaniel Inman/ion-cloud/issues"
   },
   "scripts": {
     "build:clean": "rm -rf ./dist && mkdir ./dist",
