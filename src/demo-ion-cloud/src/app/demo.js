@@ -1,4 +1,4 @@
-import {IonCloud} from './vendor/';
+import {IonCloud} from '../../../lib/';
 
 let scene = new IonCloud();
 

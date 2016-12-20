@@ -10,15 +10,10 @@ export default {
   entry:{
     app: [
       './src/app/app.js'
-    ],
-    vendor: [
-      './src/app/vendor/easel.js',
-      './src/app/vendor/ion.js'
     ]
   },
 //  devtool: 'source-map',
   plugins:[
-    new commonsChunk('vendor.js'),
     new uglifyWebpack({minimize: true,mangle: false}),
     new webpack.DefinePlugin({
       'process.env': {
