@@ -4,7 +4,7 @@ import uglifyWebpack from 'webpack/lib/optimize/UglifyJsPlugin';
 export default {
   entry:{
     app: [
-      './src/app/vendor/index.js'
+      './src/lib/index.js'
     ],
   },
 //  devtool: 'source-map',
