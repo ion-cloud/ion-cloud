@@ -92,9 +92,9 @@ export function hex2rgb(hex,makeObject){
     g = parseInt(hex.substr(3,2),16);
     b = parseInt(hex.substr(5,2),16);
   }else if(hex.length===4){
-    r = parseInt(hex.substr(1,1)+color.substr(1,1),16);
-    g = parseInt(hex.substr(2,1)+color.substr(2,1),16);
-    b = parseInt(hex.substr(3,1)+color.substr(3,1),16);
+    r = parseInt(hex.substr(1,1)+hex.substr(1,1),16);
+    g = parseInt(hex.substr(2,1)+hex.substr(2,1),16);
+    b = parseInt(hex.substr(3,1)+hex.substr(3,1),16);
   } //end if
   if(makeObject){
     result.r=r;result.g=g;result.b=b;
