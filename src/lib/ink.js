@@ -51,17 +51,7 @@ export function ink(color,options,lowerboundThreshold,upperboundThreshold){
 
     r=splitRgb[1];g=splitRgb[2];b=splitRgbb[3];
   } //end if
-  if(isHex){
-    if(color.length===7){
-      r = parseInt(color.substr(1,2),16);
-      g = parseInt(color.substr(3,2),16);
-      b = parseInt(color.substr(5,2),16);
-    }else if(color.length===4){
-      r = parseInt(color.substr(1,1)+color.substr(1,1),16);
-      g = parseInt(color.substr(2,1)+color.substr(2,1),16);
-      b = parseInt(color.substr(3,1)+color.substr(3,1),16);
-    } //end if
-  } //end if
+  if(isHex) ({r,g,b} = hex2rgbObject(color));
   if(upperbound<lowerbound) [upperbound,lowerbound]=[lowerbound,upperbound];
   if(upperbound>=1) upperbound=0.999;
   if(lowerbound<=0) lowerbound=0.001;
@@ -92,6 +82,31 @@ export function ink(color,options,lowerboundThreshold,upperboundThreshold){
   } //end if
   return result;
 } //end ink()
+
+// Convert hex to rgb or object
+export function hex2rgb(hex,makeObject){
+  let r,g,b,result={};
+
+  if(hex.length===7){
+    r = parseInt(hex.substr(1,2),16);
+    g = parseInt(hex.substr(3,2),16);
+    b = parseInt(hex.substr(5,2),16);
+  }else if(hex.length===4){
+    r = parseInt(hex.substr(1,1)+color.substr(1,1),16);
+    g = parseInt(hex.substr(2,1)+color.substr(2,1),16);
+    b = parseInt(hex.substr(3,1)+color.substr(3,1),16);
+  } //end if
+  if(makeObject){
+    result.r=r;result.g=g;result.b=b;
+  }else{
+    result = `rgb(${r},${g},${b})`;
+  } //end if
+  return result;
+} //end hex2regb()
+
+export function hex2rgbObject(hex){
+  return hex2rgb(hex,true);
+} //end hex2rgbObject()
 
 // Convert rgb or rgba String to hex String
 export function rgb2hex(rgb){
