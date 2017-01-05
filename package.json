@@ -1,6 +1,6 @@
 {
   "name": "ion-cloud",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Ion Cloud Particle Engine",
   "license": "MIT",
   "main": "gulpfile.babel.js",
