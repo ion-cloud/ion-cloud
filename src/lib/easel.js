@@ -77,5 +77,3 @@ export class Easel3d extends Easel{
   }
 }
 /*eslint-enable */
-
-export const easel = new Easel();
