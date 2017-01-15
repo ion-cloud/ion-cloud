@@ -1,6 +1,6 @@
 /*eslint-disable */
 export class Easel{
-  constructor(){
+  constructor(is3d){
     if(!!window.CanvasRenderingContext2D){
       this.activated = true; }else{
       this.activated = false;
@@ -10,7 +10,11 @@ export class Easel{
     window.D = document;
     window.M = Math;
     window.C = D.createElement('canvas');
-    window.ctx = C.getContext('2d');
+    if(is3d){
+      window.ctx = C.getContext('webgl');
+    }else{
+      window.ctx = C.getContext('2d');
+    } //end if
     window.v = this.acquireViewport();
     window.r = function(f, g, e) {
         f = !g ? 0 * (g = f) : f > g ? g + (d = f) - g : f;
@@ -65,6 +69,11 @@ export class Easel{
   onDraw(){
     ctx.fillStyle = this.background;
     ctx.fillRect(0, 0, v.w, v.h);
+  }
+}
+export class Easel3d extends Easel{
+  constructor(){
+    super(true);
   }
 }
 /*eslint-enable */
