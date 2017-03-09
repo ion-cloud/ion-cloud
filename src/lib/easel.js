@@ -6,52 +6,50 @@ export class Easel{
       this.activated = false;
       return false;
     } //end if
-    window.W = window;
-    window.D = document;
-    window.M = Math;
-    window.C = D.createElement('canvas');
+    this.canvas = document.createElement('canvas');
     if(is3d){
-      window.ctx = C.getContext('webgl');
+      this.ctx = this.canvas.getContext('webgl');
     }else{
-      window.ctx = C.getContext('2d');
+      this.ctx = this.canvas.getContext('2d');
     } //end if
-    window.v = this.acquireViewport();
-    window.r = function(f, g, e) {
+    this.viewport = this.acquireViewport();
+    this.r = function(f, g, e) {
         f = !g ? 0 * (g = f) : f > g ? g + (d = f) - g : f;
         e = e || 0;
         g = M.random() * (g - f) + f;
         return e ? g | 0 : g;
     };
     window.onresize = ()=>{
-        W.v = this.acquireViewport();
+        this.viewport = this.acquireViewport();
         this.resizeCanvas();
         this.config();
         this.redraw();
     };
     this.background = '#000';
     this.started = false;
-    document.body.appendChild(C);
+    document.body.appendChild(this.canvas);
+
     let d = document.createElement('style');
     d.type = 'text/css';
     d.rel = 'stylesheet';
     d.innerHTML = `body{background-color:${this.background};margin:0;}
                    canvas{position:fixed;left:0;top:0;right:0;bottom:0;}`;
-    document.getElementsByTagName('head')[0].appendChild(d);
+    document.querySelector('head').appendChild(d);
     this.resizeCanvas();
   }
   resizeCanvas(){
-    C.width = v.w;
-    C.height = v.h;
+    this.canvas.width = v.w;
+    this.canvas.height = v.h;
   }
   acquireContext(){
-    ctx = window.C.getContext('2d');
+    this.ctx = this.canvas.getContext('2d');
   }
   acquireViewport(){
-    var d = W, b = 'inner';
+    let d = window, b = 'inner';
 
     if(!(d.innerWidth)){
       b = 'client';
-      d = D.documentElement || D.body;
+      d = document.documentElement || document.body;
     } //end if
     return {
       w: d[b + 'Width'],
