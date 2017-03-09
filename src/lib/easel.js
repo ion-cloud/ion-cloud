@@ -17,7 +17,7 @@ export class Easel{
     this.randomInteger = function randomInteger(f,g,e){
       f = !g ? 0 * (g = f) : f > g ? g + (d = f) - g : f;
       e = e || 0;
-      g = M.random() * (g - f) + f;
+      g = Math.random() * (g - f) + f;
       return e ? g | 0 : g;
     };
     window.onresize = ()=>{
