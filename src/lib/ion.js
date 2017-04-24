@@ -1,13 +1,15 @@
 export class Ion{
-  constructor(quantity,size,startX,startY,endX,endY){
+  constructor(ctx,viewport){
+    this.ctx = ctx;
+    this.viewport = viewport;
     this.collection=[];
     this.clearFrame=true;
-    this.quantity=quantity||1;
-    this.size=size||1;
-    this.startX=startX||0;
-    this.startY=startY||0;
-    this.endX=endX||1;
-    this.endY=endY||1;
+    this.quantity=1;
+    this.size=1;
+    this.startX=0;
+    this.startY=0;
+    this.endX=1;
+    this.endY=1;
     this.windX=0;
     this.windY=0;
     this.color='#48F';
@@ -16,6 +18,12 @@ export class Ion{
     this.tweenCurrent=0;
     this.tweenDuration=1000;
     this.tweenSpeed=1;
+    if(!this.ctx){
+      console.warn('Ion initialized without canvas context.')
+    } //end if
+    if(!this.viewport){
+      console.warn('Ion initialized without viewport variable.')
+    } //end if
   }
 
   // Ease is a tweening function using Robert Penner's equations to identify
@@ -313,9 +321,9 @@ export class Ion{
         s = p.size||1; //fallback of one if they made it custom & ignored
 
     if(isClear){
-      ctx.fillStyle = this.clearColor;
+      this.ctx.fillStyle = this.clearColor;
     }else{
-      ctx.fillStyle = particle.color;
+      this.ctx.fillStyle = particle.color;
     } //end if
     if(image && image instanceof Array && image.length){
       let scaleX = p.imageWidth/image[0].length,
@@ -324,9 +332,9 @@ export class Ion{
       image.forEach((yo,y)=>{
         yo.forEach((xo,x)=>{
           if(isClear&&xo){
-            ctx.fillRect(p.x+x*scaleX-1,p.y+y*scaleY-1,s*scaleX+1,s*scaleY+1);
+            this.ctx.fillRect(p.x+x*scaleX-1,p.y+y*scaleY-1,s*scaleX+1,s*scaleY+1);
           }else if(xo){
-            ctx.fillRect(p.x+x*scaleX,p.y+y*scaleY,s*scaleX,s*scaleY);
+            this.ctx.fillRect(p.x+x*scaleX,p.y+y*scaleY,s*scaleX,s*scaleY);
           } //end if
         });
       });
@@ -335,12 +343,12 @@ export class Ion{
           py = p.y-p.imageHeight/2;
 
       if(p.imageWidth && p.imageHeight){ //sizes given for constrain
-        ctx.drawImage(image,px,py,p.imageWidth,p.imageHeight);
+        this.ctx.drawImage(image,px,py,p.imageWidth,p.imageHeight);
       }else{ //no sizes given, just allow it to fill with images normal size
-        ctx.drawImage(image,px,py);
+        this.ctx.drawImage(image,px,py);
       } //end if
     }else{
-      ctx.fillRect(p.x,p.y,s,s);
+      this.ctx.fillRect(p.x,p.y,s,s);
     } //end if
   }
 
@@ -383,8 +391,8 @@ export class Ion{
 
   // this clears everything on the screen
   clearFrame(){
-    ctx.fillStyle=this.clearColor;
-    ctx.fillRect(0,0,v.w,v.h);
+    this.ctx.fillStyle=this.clearColor;
+    this.ctx.fillRect(0,0,this.viewport.width,this.viewport.height);
   }
 
   // getFrame is what operates on the tweening functions for the particles,
@@ -394,7 +402,9 @@ export class Ion{
       if(p.imageClear) this.clear(p);
       this.wind(p);
       this.onMove(p);
-      if(p.x<0||p.y<0||p.x>v.w||p.y>v.h)this.onEscape(p);
+      if(p.x<0||p.y<0||p.x>this.viewport.width||p.y>this.viewport.height){
+        this.onEscape(p);
+      } //end if
       if((p.x|0)!==(p.endX|0)) p.x=this.tween(p,'x');
       if((p.y|0)!==(p.endY|0)) p.y=this.tween(p,'y');
       p.tweenCurrent++;

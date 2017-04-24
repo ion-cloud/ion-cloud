@@ -68,7 +68,7 @@ export class Easel{
   config(){}
   onDraw(){
     ctx.fillStyle = this.background;
-    ctx.fillRect(0, 0, v.w, v.h);
+    ctx.fillRect(0, 0, this.viewport.width, this.viewport.height);
   }
 }
 export class Easel3d extends Easel{
