@@ -2,27 +2,27 @@ export class Ion{
   constructor(ctx,viewport){
     this.ctx = ctx;
     this.viewport = viewport;
-    this.collection=[];
-    this.clearFrame=true;
-    this.quantity=1;
-    this.size=1;
-    this.startX=0;
-    this.startY=0;
-    this.endX=1;
-    this.endY=1;
-    this.windX=0;
-    this.windY=0;
-    this.color='#48F';
-    this.clearColor='#000';
-    this.tweenType=0;
-    this.tweenCurrent=0;
-    this.tweenDuration=1000;
-    this.tweenSpeed=1;
+    this.collection = [];
+    this.clearFrame = true;
+    this.quantity = 1;
+    this.size = 1;
+    this.startX = 0;
+    this.startY = 0;
+    this.endX = 1;
+    this.endY = 1;
+    this.windX = 0;
+    this.windY = 0;
+    this.color = '#48F';
+    this.clearColor = '#000';
+    this.tweenType = 0;
+    this.tweenCurrent = 0;
+    this.tweenDuration = 1000;
+    this.tweenSpeed = 1;
     if(!this.ctx){
-      console.warn('Ion initialized without canvas context.')
+      console.warn('Ion initialized without canvas context.');
     } //end if
     if(!this.viewport){
-      console.warn('Ion initialized without viewport variable.')
+      console.warn('Ion initialized without viewport variable.');
     } //end if
   }
 
