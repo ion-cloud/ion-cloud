@@ -1,19 +1,17 @@
-import webpack       from 'webpack';
+import path from 'path';
+import webpack from 'webpack';
+import uglify from 'uglifyjs-webpack-plugin';
 
 export default {
   entry:{
     app: './src/lib/index.js'
   },
   plugins:[
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: false,
-      compress: {warnings: false},
-      output: {comments: false},
-    }),
+    new uglify(),
     new webpack.DefinePlugin({'process.env': {NODE_ENV: '"development"'}})
   ],
   output:{
-    path: './',
+    path: path.resolve('./'),
     filename:'index.js',
     umdNamedDefine: true,
     libraryTarget: 'umd',
