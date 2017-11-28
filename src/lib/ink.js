@@ -49,7 +49,7 @@ export function ink(color,options,lowerboundThreshold,upperboundThreshold){
   if(isRgb){
     let splitRgb = color.split(/[,()]/g);
 
-    r=splitRgb[1];g=splitRgb[2];b=splitRgbb[3];
+    r=splitRgb[1];g=splitRgb[2];b=splitRgb[3];
   } //end if
   if(isHex) ({r,g,b} = hex2rgbObject(color));
   if(upperbound<lowerbound) [upperbound,lowerbound]=[lowerbound,upperbound];
