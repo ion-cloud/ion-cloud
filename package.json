@@ -16,18 +16,13 @@
     "url": "https://github.com/Nathaniel Inman/ion-cloud/issues"
   },
   "scripts": {
-    "prepublish": "node ./node_modules/webpack/bin/webpack.js --config ./config.babel.js"
+    "build": "node ./node_modules/webpack/bin/webpack.js --config ./config.babel.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
-    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.12.0",
     "eslint-loader": "^1.9.0",
@@ -40,5 +35,9 @@
     "webpack": "^3.8.1"
   },
   "readmeFilename": "README.md",
-  "homepage": "https://github.com/Nathaniel Inman/space-invaders"
+  "homepage": "https://github.com/Nathaniel Inman/space-invaders",
+  "dependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-env": "^1.6.1"
+  }
 }
