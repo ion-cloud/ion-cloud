@@ -1,0 +1,6 @@
+{
+  "plugins": ["transform-regenerator"],
+  "presets": [
+    ["env",{"targets": {"browsers": ["last 2 versions", "> 1%"]}}]
+  ]
+}
