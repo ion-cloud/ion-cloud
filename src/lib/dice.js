@@ -77,7 +77,7 @@ function maxOperation(operation){
   if(splitString.length>1){
     result = splitString[0]*splitString[1]; //#d#
   }else{
-    result = splitString[0]; //#
+    result = +splitString[0]; //#
   } //end if
   return result;
 } //end maxOperation()
