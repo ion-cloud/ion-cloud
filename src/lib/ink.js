@@ -251,7 +251,7 @@ function getObjectFromHsla(colorString){
 
   // given hue (h), saturation (s) and light (l) convert to rgb
   let C = (1 - Math.abs(2*l - 1))*s,
-      X = C*(1 - Math.abs(h/60)%2 - 1),
+      X = C*(1 - Math.abs(h/60%2 - 1)),
       m = l - C/2,
       loc = ()=>{
         if(h<60) return [C,X,0];
