@@ -586,29 +586,21 @@ export function ink(colorString,{...options}){
     if(b>255) b = 255;
   } //end if
   if(options.a) a = options.a;
-  if(options.minLightness){
-    while((r+g+b)/3/255<options.minLightness){
-      r*=1.01; g*=1.01; b*=1.01;
-      if(r===0) r = 0.01;
-      if(g===0) g = 0.01;
-      if(b===0) b = 0.01;
-    } //end while()
+  if(options.minLightness||options.maxLightness||options.lightness){
+    let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsla)/g,'').split(',');
+
+    if(l<options.minLightness) l = options.minLightness;
+    if(l>options.maxLightness) l = options.maxLightness;
+    if(+l!==options.lightness) l = options.lightness;
+    ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
   } //end if
-  if(options.maxLightness){
-    while((r+g+b)/3/255>options.maxLightness){
-      r*=0.99; g*=0.99; b*=0.99;
-    } //end while()
-  } //end if
-  if(options.lightness){
-    while((r+g+b)/3/255<options.lightness-0.03){
-      r*=1.01; g*=1.01; b*=1.01;
-      if(r===0) r = 0.01;
-      if(g===0) g = 0.01;
-      if(b===0) b = 0.01;
-    } //end while()
-    while((r+g+b)/3/255>options.lightness+0.03){
-      r*=0.99; g*=0.99; b*=0.99;
-    } //end while()
+  if(options.minSaturation||options.maxSaturation||options.saturation){
+    let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsla)/g,'').split(',');
+
+    if(s<options.minSaturation) s = options.minSaturation;
+    if(s>options.maxSaturation) s = options.maxSaturation;
+    if(+s!==options.saturation) s = options.saturation;
+    ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
   } //end if
   r = Math.round(r);
   g = Math.round(g);
