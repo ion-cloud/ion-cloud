@@ -178,20 +178,16 @@ function getObjectFromHsva(colorString){
   let C = v*s,
       X = C*(1 - Math.abs((h/60)%2 - 1)),
       m = v-C,
-      loc = ()=>{
-        if(h<60) return [C,X,0];
-        if(h<120) return [X,C,0];
-        if(h<180) return [0,C,X];
-        if(h<240) return [0,X,C];
-        if(h<300) return [X,0,C];
-        return [C,0,X];
+      loc = (type)=>{
+        if(h<60) return Math.round(([C,X,0][type]+m)*255);
+        if(h<120) return Math.round(([X,C,0][type]+m)*255);
+        if(h<180) return Math.round(([0,C,X][type]+m)*255);
+        if(h<240) return Math.round(([0,X,C][type]+m)*255);
+        if(h<300) return Math.round(([X,0,C][type]+m)*255);
+        return Math.round(([C,0,X][type]+m)*255);
       };
 
-  [r,g,b] = [
-    Math.round((loc()[0]+m)*255),
-    Math.round((loc()[1]+m)*255),
-    Math.round((loc()[2]+m)*255)
-  ];
+  [r,g,b] = [loc(0),loc(1),loc(2)];
   return {r,g,b,a};
 } //end getObjectFromHsva()
 
@@ -253,16 +249,16 @@ function getObjectFromHsla(colorString){
   let C = (1 - Math.abs(2*l - 1))*s,
       X = C*(1 - Math.abs(h/60%2 - 1)),
       m = l - C/2,
-      loc = ()=>{
-        if(h<60) return [C,X,0];
-        if(h<120) return [X,C,0];
-        if(h<180) return [0,C,X];
-        if(h<240) return [0,X,C];
-        if(h<300) return [X,0,C];
-        return [C,0,X];
+      loc = (type)=>{
+        if(h<60) return Math.round(([C,X,0][type]+m)*255);
+        if(h<120) return Math.round(([X,C,0][type]+m)*255);
+        if(h<180) return Math.round(([0,C,X][type]+m)*255);
+        if(h<240) return Math.round(([0,X,C][type]+m)*255);
+        if(h<300) return Math.round(([X,0,C][type]+m)*255);
+        return Math.round(([C,0,X][type]+m)*255);
       };
 
-  [r,g,b] = [(loc()[0]+m)*255,(loc()[1]+m)*255,(loc()[2]+m)*255];
+  [r,g,b] = [loc(0),loc(1),loc(2)];
   return {r,g,b,a};
 } //end getObjectFromHsla()
 
