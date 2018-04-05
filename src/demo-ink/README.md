@@ -38,14 +38,14 @@ colorString may be rgb
 ink('rgb(255,255,255)') // outputs 'rgba(255,255,255,1)'
 ```
 
-colorString may be hsla
+colorString may be hsla (where percents are between 0 and 1)
 ```
-ink('hsla(0,100%,100%,0.5)') // outputs 'rgba(255,255,255,0.5)'
+ink('hsla(0,1,1,0.5)') // outputs 'rgba(255,255,255,0.5)'
 ```
 
-colorString may be hsl
+colorString may be hsl (where percents are between 0 and 1)
 ```
-ink('hsl(0,100%,100%)') // outputs 'rgba(255,255,255,1)'
+ink('hsl(0,1,1)') // outputs 'rgba(255,255,255,1)'
 ```
 
 optionsObject may contain a format attribute with one of the following
@@ -53,7 +53,7 @@ values: 'hex', 'rgb', 'rgba', 'hsl', 'hsla', 'hsva', 'hsv', 'hsba', 'hsb', 'obje
 If opacity manipulation occurs and an output is chosen that doesn't
 support opacity, any opacity inputs will be ignored.
 ```
-ink('hsla(0,100%,100%,0.3)',{format: 'hex'}) // outputs '#ffffff'
+ink('hsla(0,1,1,0.3)',{format: 'hex'}) // outputs '#ffffff'
 ink('#fff',{format: 'object'}) // outputs {r:255,g:255,b:255,a:1}
 ```
 

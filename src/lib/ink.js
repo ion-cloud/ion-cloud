@@ -143,6 +143,11 @@ function getObjectFromHsva(colorString){
     console.warn(`[Ink] Converting hue value to ${h%360}.`);
     h%=360;
   } //end if
+  if(h<0){
+    console.warn('[Ink] Hue hsv(a)/hsb(a) was less than 0.');
+    console.warn(`[Ink] Converting hue value to ${360-h%360}.`);
+    h=360-h%360;
+  } //end if
   s = +s; //convert to number
   if(isNaN(s)||typeof s !== 'number'){
     throw Error('[Ink] Saturation hsv(a)/hsb(a) is not a valid number.');
@@ -173,28 +178,23 @@ function getObjectFromHsva(colorString){
   } //end if
   a = +a;
 
-  // make sure we aren't achromatic (gray)
-  // eslint-disable-next-line eqeqeq
-  if(s==0){
-    r = g = b = v;
-  }else{
-    h /= 60; i = Math.floor(h); f = h - i;
-    let p = v*(1-s), q = v*(1-s*f), t = v*(1-s*(1-f));
+  let C = v*s,
+      X = C*(1 - Math.abs((h/60)%2 - 1)),
+      m = v-C,
+      loc = ()=>{
+        if(h<60) return [C,X,0];
+        if(h<120) return [X,C,0];
+        if(h<180) return [0,C,X];
+        if(h<240) return [0,X,C];
+        if(h<300) return [X,0,C];
+        return [C,0,X];
+      };
 
-    if(i===0){
-      r = v; g = t; b = p;
-    }else if(i===1){
-      r = q; g = v; b = p;
-    }else if(i===2){
-      r = p; g = v; b = t;
-    }else if(i===3){
-      r = p; g = q; b = v;
-    }else if(i===4){
-      r = t; g = p; b = v;
-    }else if(i===5){
-      r = v; g = p; b = q;
-    } //end if
-  } //end if
+  [r,g,b] = [
+    Math.round((loc()[0]+m)*255),
+    Math.round((loc()[1]+m)*255),
+    Math.round((loc()[2]+m)*255)
+  ];
   return {r,g,b,a};
 } //end getObjectFromHsva()
 
@@ -319,7 +319,7 @@ function getRgbFromObject(object){
 } //end getRgbFromObject()
 
 function getHsvaFromObject({r,g,b,a}){
-  r/=255;g/=255;b/=255;
+  r/=255;g/=255;b/=255; //eslint-disable-line no-param-reassign
   let min = Math.min(r,g,b),
       max = Math.max(r,g,b),
       delta = max - min,
