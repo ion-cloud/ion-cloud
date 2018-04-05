@@ -1,4 +1,14 @@
 # Ink Demo
+Ink is a tiny color manipulation or translation library with robust
+validation and error handling that shines in places where you can't
+trust the input color or random generation and games. Here are a few
+of it's main capabilities:
+
+- translate between color spaces: hex, rgb, rgba, hsl, hsla, hsva, hsv, hsba or hsb
+- apply a minimum or maximum lightness threshold on a color
+- coerce a color to a certain lightness percent
+- apply a minimum or maximum saturation threshold on a color
+- coerce a color to a certain saturation percent
 
 ## Main functions
 The structure of the call is as follows:
