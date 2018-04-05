@@ -9,6 +9,8 @@ of it's main capabilities:
 - coerce a color to a certain lightness percent
 - apply a minimum or maximum saturation threshold on a color
 - coerce a color to a certain saturation percent
+- apply and alpha value
+- output to javascript object {r,g,b,a}
 
 ## Main functions
 The structure of the call is as follows:
