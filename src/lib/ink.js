@@ -613,7 +613,7 @@ export function ink(colorString,{...options}){
   r = Math.round(r);
   g = Math.round(g);
   b = Math.round(b);
-  a = Math.toFixed(3);
+  a = (''+a).toFixed(3);
 
   // now we'll acquire the result
   let result;
