@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import uglify from 'uglifyjs-webpack-plugin';
 
 export default {
+  mode: 'production',
   entry:{
     app: './src/lib/index.js'
   },
