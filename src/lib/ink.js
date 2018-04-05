@@ -318,9 +318,9 @@ function getRgbFromObject(object){
   return `rgb(${object.r},${object.g},${object.b})`;
 } //end getRgbFromObject()
 
-function getHsvaFromObject(object){
-  let {r,g,b,a} = object,
-      min = Math.min(r,g,b),
+function getHsvaFromObject({r,g,b,a}){
+  r/=255;g/=255;b/=255;
+  let min = Math.min(r,g,b),
       max = Math.max(r,g,b),
       delta = max - min,
       h,s,v = max;
