@@ -15,4 +15,4 @@ Ion Cloud is a *tiny* 2d animation library for javascript, it comes with 5 choos
     - apply an alpha value
     - output to javascript object {r,g,b,a}
     - [here is the documentation](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ink)
-  - Phaser : *gradient animation and initialization helper*
+  - **Phaser** : *gradient animation and initialization helper*
