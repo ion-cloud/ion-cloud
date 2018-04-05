@@ -589,6 +589,9 @@ export function ink(colorString,{...options}){
   if(options.minLightness){
     while((r+g+b)/3/255<options.minLightness){
       r*=1.01; g*=1.01; b*=1.01;
+      if(r===0) r = 0.01;
+      if(g===0) g = 0.01;
+      if(b===0) b = 0.01;
     } //end while()
   } //end if
   if(options.maxLightness){
@@ -599,6 +602,9 @@ export function ink(colorString,{...options}){
   if(options.lightness){
     while((r+g+b)/3/255<options.lightness-0.03){
       r*=1.01; g*=1.01; b*=1.01;
+      if(r===0) r = 0.01;
+      if(g===0) g = 0.01;
+      if(b===0) b = 0.01;
     } //end while()
     while((r+g+b)/3/255>options.lightness+0.03){
       r*=0.99; g*=0.99; b*=0.99;
