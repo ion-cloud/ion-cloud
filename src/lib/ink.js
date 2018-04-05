@@ -34,15 +34,15 @@ function getObjectFromRgba(colorString){
 
   r = +r; //convert to number
   if(isNaN(+r)||typeof r !== 'number'){
-    throw Error('[Ink] Red rgba value is not a valid number.');
+    throw Error(`[Ink] Red rgba value is not a valid number. (${r})`);
   } //end if
   if(r<0){
-    console.warn('[Ink] Red rgba value was less than 0.');
+    console.warn(`[Ink] Red rgba value was less than 0. (${r})`);
     console.warn('[Ink] Converting red value to 0...');
     r = 0;
   } //end if
   if(r>255){
-    console.warn('[Ink] Red rgba value was greater than 255.');
+    console.warn(`[Ink] Red rgba value was greater than 255. (${r})`);
     console.warn('[Ink] Converting red value to 255...');
     r = 255;
   } //end if
@@ -51,12 +51,12 @@ function getObjectFromRgba(colorString){
     throw Error('[Ink] Green rgba value is not a valid number.');
   } //end if
   if(g<0){
-    console.warn('[Ink] Green rgba value was less than 0.');
+    console.warn(`[Ink] Green rgba value was less than 0. (${g})`);
     console.warn('[Ink] converting green value to 0...');
     g = 0;
   } //end if
   if(g>255){
-    console.warn('[Ink] Green rgba value was greater than 255.');
+    console.warn(`[Ink] Green rgba value was greater than 255. (${g})`);
     console.warn('[Ink] Converting green value to 255...');
     g = 255;
   } //end if
@@ -65,12 +65,12 @@ function getObjectFromRgba(colorString){
     throw Error('[Ink] Blue rgba value is not a valid number.');
   } //end if
   if(b<0){
-    console.warn('[Ink] Blur rgba value was less than 0.');
+    console.warn(`[Ink] Blur rgba value was less than 0. (${b})`);
     console.warn('[Ink] converting blue value to 0...');
     b = 0;
   } //end if
   if(b>255){
-    console.warn('[Ink] Blue rgba value was greater than 255.');
+    console.warn(`[Ink] Blue rgba value was greater than 255. (${b})`);
     console.warn('[Ink] Converting blue value to 255...');
     b = 255;
   } //end if
@@ -87,12 +87,12 @@ function getObjectFromRgb(colorString){
     throw Error('[Ink] Red rgb value is not a valid number.');
   } //end if
   if(r<0){
-    console.warn('[Ink] Red rgb value was less than 0.');
+    console.warn(`[Ink] Red rgb value was less than 0. (${r})`);
     console.warn('[Ink] Converting red value to 0...');
     r = 0;
   } //end if
   if(r>255){
-    console.warn('[Ink] Red rgb value was greater than 255.');
+    console.warn(`[Ink] Red rgb value was greater than 255. (${r})`);
     console.warn('[Ink] Converting red value to 255...');
     r = 255;
   } //end if
@@ -101,12 +101,12 @@ function getObjectFromRgb(colorString){
     throw Error('[Ink] Green rgb value is not a valid number.');
   } //end if
   if(g<0){
-    console.warn('[Ink] Green rgb value was less than 0.');
+    console.warn(`[Ink] Green rgb value was less than 0. (${g})`);
     console.warn('[Ink] converting green value to 0...');
     g = 0;
   } //end if
   if(g>255){
-    console.warn('[Ink] Green rgb value was greater than 255.');
+    console.warn(`[Ink] Green rgb value was greater than 255. (${g})`);
     console.warn('[Ink] Converting green value to 255...');
     g = 255;
   } //end if
@@ -115,12 +115,12 @@ function getObjectFromRgb(colorString){
     throw Error('[Ink] Blue rgb value is not a valid number.');
   } //end if
   if(b<0){
-    console.warn('[Ink] Blue rgb value was less than 0.');
+    console.warn(`[Ink] Blue rgb value was less than 0. (${b})`);
     console.warn('[Ink] converting blue value to 0...');
     b = 0;
   } //end if
   if(b>255){
-    console.warn('[Ink] Blue rgb value was greater than 255.');
+    console.warn(`[Ink] Blue rgb value was greater than 255. (${b})`);
     console.warn('[Ink] Converting blue value to 255...');
     b = 255;
   } //end if
@@ -136,13 +136,13 @@ function getObjectFromHsva(colorString){
     throw Error('[Ink] Hue hsv(a)/hsb(a) is not a valid number.');
   } //end if
   if(h>360){
-    console.warn('[Ink] Hue hsv(a)/hsb(a) was greater than 360.');
+    console.warn(`[Ink] Hue hsv(a)/hsb(a) was greater than 360. (${h})`);
     console.warn(`[Ink] Converting hue value to ${h%360}.`);
     h%=360;
   } //end if
   if(h<0){
-    console.warn('[Ink] Hue hsv(a)/hsb(a) was less than 0.');
-    console.warn(`[Ink] Converting hue value to ${360-h%360}.`);
+    console.warn(`[Ink] Hue hsv(a)/hsb(a) was less than 0. (${h})`);
+    console.warn(`[Ink] Converting hue value to ${360+h%360}.`);
     h=360-h%360;
   } //end if
   s = +s; //convert to number
@@ -150,12 +150,12 @@ function getObjectFromHsva(colorString){
     throw Error('[Ink] Saturation hsv(a)/hsb(a) is not a valid number.');
   } //end if
   if(s<0){
-    console.warn('[Ink] Saturation hsv(a)/hsb(a) was less than 0.');
+    console.warn(`[Ink] Saturation hsv(a)/hsb(a) was less than 0. (${s})`);
     console.warn('[Ink] Converting saturation value to 0...');
     s = 0;
   } //end if
   if(s>1){
-    console.warn('[Ink] Saturation hsv(a)/hsb(a) was greater than 0.');
+    console.warn(`[Ink] Saturation hsv(a)/hsb(a) was greater than 0. (${s})`);
     console.warn('[Ink] Converting saturation value to 1...');
     s = 1;
   } //end if
@@ -164,12 +164,12 @@ function getObjectFromHsva(colorString){
     throw Error('[Ink] Brightness/value hsv(a)/hsb(a) is not a valid number.');
   } //end if
   if(v<0){
-    console.warn('[Ink] Brightness/value hsv(a)/hsb(a) was less than 0.');
+    console.warn(`[Ink] Brightness/value hsv(a)/hsb(a) was less than 0. (${v})`);
     console.warn('[Ink] Converting brightness to 0...');
     v = 0;
   } //end if
   if(v>1){
-    console.warn('[Ink] Brightness/value hsv(a)/hsb(a) was greater than 1.');
+    console.warn(`[Ink] Brightness/value hsv(a)/hsb(a) was greater than 1. (${v})`);
     console.warn('[Ink] Converting brightness to 1...');
     v = 1;
   } //end if
@@ -206,13 +206,13 @@ function getObjectFromHsla(colorString){
     throw Error('[Ink] Hue hsl(a) is not a valid number.');
   } //end if
   if(h>360){
-    console.warn('[Ink] Hue hsl(a) was greater than 360.');
+    console.warn(`[Ink] Hue hsl(a) was greater than 360. (${h})`);
     console.warn(`[Ink] Converting hue value to ${h%360}.`);
     h%=360;
   } //end if
   if(h<0){
-    console.warn('[Ink] Hue hsl(a) was less than 0.');
-    console.warn(`[Ink] Converting hue value to ${360-h%360}.`);
+    console.warn(`[Ink] Hue hsl(a) was less than 0. (${h})`);
+    console.warn(`[Ink] Converting hue value to ${360+h%360}.`);
     h=360-h%360;
   } //end if
   s = +s; //convert to number
@@ -220,12 +220,12 @@ function getObjectFromHsla(colorString){
     throw Error('[Ink] Saturation hsl(a) is not a valid number.');
   } //end if
   if(s<0){
-    console.warn('[Ink] Saturation hsl(a) was less than 0.');
+    console.warn(`[Ink] Saturation hsl(a) was less than 0. (${s})`);
     console.warn('[Ink] Converting saturation value to 0...');
     s = 0;
   } //end if
   if(s>1){
-    console.warn('[Ink] Saturation hsl(a) was greater than 0.');
+    console.warn(`[Ink] Saturation hsl(a) was greater than 0. (${s})`);
     console.warn('[Ink] Converting saturation value to 1...');
     s = 1;
   } //end if
@@ -234,12 +234,12 @@ function getObjectFromHsla(colorString){
     throw Error('[Ink] Lightness hsl(a) is not a valid number.');
   } //end if
   if(l<0){
-    console.warn('[Ink] Lightness hsl(a) was less than 0.');
+    console.warn(`[Ink] Lightness hsl(a) was less than 0. (${l})`);
     console.warn('[Ink] Converting lightness to 0...');
     l = 0;
   } //end if
   if(l>1){
-    console.warn('[Ink] Lightness hsl(a) was greater than 1.');
+    console.warn(`[Ink] Lightness hsl(a) was greater than 1. (${l})`);
     console.warn('[Ink] Converting lightness to 1...');
     l = 1;
   } //end if
@@ -270,12 +270,12 @@ function getObjectFromCmyk(colorString){
     throw Error('[Ink] Cyan cmyk is not a valid number.');
   } //end if
   if(c<0){
-    console.warn('[Ink] Cyan cmyk was less than 0.');
+    console.warn(`[Ink] Cyan cmyk was less than 0. (${c})`);
     console.warn('[Ink] Converting cyan value to 0...');
     c = 0;
   } //end if
   if(c>1){
-    console.warn('[Ink] Cyan cmyk was greater than 1 (100%).');
+    console.warn(`[Ink] Cyan cmyk was greater than 1. (${c})`);
     console.warn('[Ink] Converting cyan value to 1.');
     c = 1;
   } //end if
@@ -284,12 +284,12 @@ function getObjectFromCmyk(colorString){
     throw Error('[Ink] Magenta cmyk is not a valid number.');
   } //end if
   if(m<0){
-    console.warn('[Ink] Magenta cmyk was less than 0.');
+    console.warn(`[Ink] Magenta cmyk was less than 0. (${m})`);
     console.warn('[Ink] Converting magenta value to 0...');
     m = 0;
   } //end if
   if(m>1){
-    console.warn('[Ink] Magenta cmyk was greater than 1 (100%).');
+    console.warn(`[Ink] Magenta cmyk was greater than 1 (${m}).`);
     console.warn('[Ink] Converting magenta value to 1.');
     m = 1;
   } //end if
@@ -298,12 +298,12 @@ function getObjectFromCmyk(colorString){
     throw Error('[Ink] Yellow cmyk is not a valid number.');
   } //end if
   if(m<0){
-    console.warn('[Ink] Yellow cmyk was less than 0.');
+    console.warn(`[Ink] Yellow cmyk was less than 0. (${m})`);
     console.warn('[Ink] Converting yellow value to 0...');
     y = 0;
   } //end if
   if(y>1){
-    console.warn('[Ink] Yellow cmyk was greater than 1 (100%).');
+    console.warn(`[Ink] Yellow cmyk was greater than 1. (${y})`);
     console.warn('[Ink] Converting yellow value to 1.');
     y = 1;
   } //end if
@@ -312,12 +312,12 @@ function getObjectFromCmyk(colorString){
     throw Error('[Ink] Black cmyk is not a valid number.');
   } //end if
   if(k<0){
-    console.warn('[Ink] Black cmyk was less than 0.');
+    console.warn(`[Ink] Black cmyk was less than 0. (${k})`);
     console.warn('[Ink] Converting black value to 0...');
     k = 0;
   } //end if
   if(k>1){
-    console.warn('[Ink] Black cmyk was greater than 1 (100%).');
+    console.warn(`[Ink] Black cmyk was greater than 1. (${k})`);
     console.warn('[Ink] Converting black value to 1.');
     k = 1;
   } //end if
@@ -443,6 +443,7 @@ function getHslaFromObject({r,g,b,a}){
     }else{ //max===b
       h = 60*((r-g)/delta+4);
     } //end if
+    if(h<0) h = 360+h;
   } //end if
   return `hsla(${h},${s},${l},${a})`;
 } //end getHslaFromObject()
@@ -470,12 +471,12 @@ export function ink(colorString,{...options}){
     throw Error('[Ink] Alpha value is not a valid number.');
   } //end if
   if(a<0){
-    console.warn('[Ink] Alpha was less than 0.');
+    console.warn(`[Ink] Alpha was less than 0. (${a})`);
     console.warn('[Ink] Converting alpha to 0...');
     a = 0;
   } //end if
   if(a>1){
-    console.warn('[Ink] Alpha was greater than 1.');
+    console.warn(`[Ink] Alpha was greater than 1. (${a})`);
     console.warn('[Ink] Converting alpha to 1...');
     a = 1;
   } //end if
@@ -589,17 +590,17 @@ export function ink(colorString,{...options}){
   if(options.minLightness||options.maxLightness||options.lightness){
     let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
 
-    if(l<options.minLightness) l = options.minLightness;
-    if(l>options.maxLightness) l = options.maxLightness;
-    if(+l!==options.lightness) l = options.lightness;
+    if(options.minLightness&&l<options.minLightness) l = options.minLightness;
+    if(options.maxLightness&&l>options.maxLightness) l = options.maxLightness;
+    if(options.lightness&&+l!==options.lightness) l = options.lightness;
     ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
   } //end if
   if(options.minSaturation||options.maxSaturation||options.saturation){
     let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
 
-    if(s<options.minSaturation) s = options.minSaturation;
-    if(s>options.maxSaturation) s = options.maxSaturation;
-    if(+s!==options.saturation) s = options.saturation;
+    if(options.minSaturation&&s<options.minSaturation) s = options.minSaturation;
+    if(options.maxSaturation&&s>options.maxSaturation) s = options.maxSaturation;
+    if(options.saturation&&+s!==options.saturation) s = options.saturation;
     ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
   } //end if
   r = Math.round(r);
@@ -675,3 +676,4 @@ export function convert2hex(colorString){
 export function convert2cmyk(colorString){
   return getCmykFromObject(getColorObject(colorString));
 } //end convert2cmyk()
+
