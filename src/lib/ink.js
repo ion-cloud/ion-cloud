@@ -587,7 +587,7 @@ export function ink(colorString,{...options}){
   } //end if
   if(options.a) a = options.a;
   if(options.minLightness||options.maxLightness||options.lightness){
-    let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsla)/g,'').split(',');
+    let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
 
     if(l<options.minLightness) l = options.minLightness;
     if(l>options.maxLightness) l = options.maxLightness;
@@ -595,7 +595,7 @@ export function ink(colorString,{...options}){
     ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
   } //end if
   if(options.minSaturation||options.maxSaturation||options.saturation){
-    let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsla)/g,'').split(',');
+    let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
 
     if(s<options.minSaturation) s = options.minSaturation;
     if(s>options.maxSaturation) s = options.maxSaturation;
