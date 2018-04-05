@@ -17,6 +17,8 @@ function getColorObject(colorString){
     result = getObjectFromHsla(colorString);
   }else if(colorString.includes('hsl')){
     result = getObjectFromHsl(colorString);
+  }else if(colorString.includes('cmyk')){
+    result = getObjectFromCmyk(colorString);
   }else if(colorString.includes('#')&&colorString.length===4){
     result = getObjectFromShortHex(colorString);
   }else if(colorString.includes('#')&&colorString.length===7){
@@ -133,11 +135,6 @@ function getObjectFromHsva(colorString){
   if(isNaN(h)||typeof h !== 'number'){
     throw Error('[Ink] Hue hsv(a)/hsb(a) is not a valid number.');
   } //end if
-  if(h<0){
-    console.warn('[Ink] Hue hsv(a)/hsb(a) was less than 0.');
-    console.warn('[Ink] Converting hue value to 0...');
-    h = 0;
-  } //end if
   if(h>360){
     console.warn('[Ink] Hue hsv(a)/hsb(a) was greater than 360.');
     console.warn(`[Ink] Converting hue value to ${h%360}.`);
@@ -212,11 +209,6 @@ function getObjectFromHsla(colorString){
   if(isNaN(h)||typeof h !== 'number'){
     throw Error('[Ink] Hue hsl(a) is not a valid number.');
   } //end if
-  if(h<0){
-    console.warn('[Ink] Hue hsl(a) was less than 0.');
-    console.warn('[Ink] Converting hue value to 0...');
-    h = 0;
-  } //end if
   if(h>360){
     console.warn('[Ink] Hue hsl(a) was greater than 360.');
     console.warn(`[Ink] Converting hue value to ${h%360}.`);
@@ -273,6 +265,68 @@ function getObjectFromHsla(colorString){
   [r,g,b] = [(loc()[0]+m)*255,(loc()[1]+m)*255,(loc()[2]+m)*255];
   return {r,g,b,a};
 } //end getObjectFromHsla()
+
+function getObjectFromCmyk(colorString){
+  let [c,m,y,k] = colorString.replace(/(\(|\)|cmyk)/g,'').split(',');
+
+  c = +c; //convert to number
+  if(isNaN(c)||typeof c !== 'number'){
+    throw Error('[Ink] Cyan cmyk is not a valid number.');
+  } //end if
+  if(c<0){
+    console.warn('[Ink] Cyan cmyk was less than 0.');
+    console.warn('[Ink] Converting cyan value to 0...');
+    c = 0;
+  } //end if
+  if(c>1){
+    console.warn('[Ink] Cyan cmyk was greater than 1 (100%).');
+    console.warn('[Ink] Converting cyan value to 1.');
+    c = 1;
+  } //end if
+  m = +m; //convert to number
+  if(isNaN(m)||typeof m !== 'number'){
+    throw Error('[Ink] Magenta cmyk is not a valid number.');
+  } //end if
+  if(m<0){
+    console.warn('[Ink] Magenta cmyk was less than 0.');
+    console.warn('[Ink] Converting magenta value to 0...');
+    m = 0;
+  } //end if
+  if(m>1){
+    console.warn('[Ink] Magenta cmyk was greater than 1 (100%).');
+    console.warn('[Ink] Converting magenta value to 1.');
+    m = 1;
+  } //end if
+  y = +y; //convert to number
+  if(isNaN(y)||typeof y !== 'number'){
+    throw Error('[Ink] Yellow cmyk is not a valid number.');
+  } //end if
+  if(m<0){
+    console.warn('[Ink] Yellow cmyk was less than 0.');
+    console.warn('[Ink] Converting yellow value to 0...');
+    y = 0;
+  } //end if
+  if(y>1){
+    console.warn('[Ink] Yellow cmyk was greater than 1 (100%).');
+    console.warn('[Ink] Converting yellow value to 1.');
+    y = 1;
+  } //end if
+  k = +k; //convert to number
+  if(isNaN(k)||typeof k !== 'number'){
+    throw Error('[Ink] Black cmyk is not a valid number.');
+  } //end if
+  if(k<0){
+    console.warn('[Ink] Black cmyk was less than 0.');
+    console.warn('[Ink] Converting black value to 0...');
+    k = 0;
+  } //end if
+  if(k>1){
+    console.warn('[Ink] Black cmyk was greater than 1 (100%).');
+    console.warn('[Ink] Converting black value to 1.');
+    k = 1;
+  } //end if
+  return {r: 255*(1-c)*(1-k),g: 255*(1-m)*(1-k),b: 255*(1-y)*(1-k),a: 1};
+} //end getObjectFromCmyk()
 
 function getObjectFromHsl(colorString){
   let [h,s,l] = colorString.replace(/(\(|\)|hsl)/g,'').split(',');
@@ -363,6 +417,16 @@ function getHsbFromObject(object){
 
   return `hsba(${h},${s},${b})`;
 } //end getHsbFromObject()
+
+function getCmykFromObject({r,g,b,a}){
+  r/=255;g/=255;b/=255; //eslint-disable-line no-param-reassign
+  let k = 1 - Math.max(r,g,b),
+      c = (1 - r - k)/(1-k),
+      m = (1 - g - k)/(1-k),
+      y = (1 - b - k)/(1-k);
+
+  return `cmyk(${c},${m},${y},${k})`;
+} //end getCmykFromObject()
 
 function getHslaFromObject({r,g,b,a}){
   r/=255;g/=255;b/=255; //eslint-disable-line no-param-reassign
@@ -566,6 +630,8 @@ export function ink(colorString,{...options}){
     result = getHsbaFromObject({r,g,b,a});
   }else if(options.format&&options.format==='rgb'){
     result = getRgbFromObject({r,g,b});
+  }else if(options.format&&options.format==='cmyk'){
+    result = getCmykFromObject({r,g,b});
   }else{ //rgba
     result = getRgbaFromObject({r,g,b,a});
   } //end if
@@ -607,3 +673,7 @@ export function convert2hsl(colorString){
 export function convert2hex(colorString){
   return getHexFromObject(getColorObject(colorString));
 } //end convert2hex()
+
+export function convert2cmyk(colorString){
+  return getCmykFromObject(getColorObject(colorString));
+} //end convert2cmyk()

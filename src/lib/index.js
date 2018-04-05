@@ -11,7 +11,8 @@ export {
   convert2hsv,
   convert2hsla,
   convert2hsl,
-  convert2hex
+  convert2hex,
+  convert2cmyk
 } from './ink';
 export {Phaser} from './phaser';
 export {Dice} from './dice';

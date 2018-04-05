@@ -4,7 +4,7 @@ validation and error handling that shines in places where you can't
 trust the input color or random generation and games. Here are a few
 of it's main capabilities:
 
-- translate between color spaces: hex, rgb, rgba, hsl, hsla, hsva, hsv, hsba or hsb
+- translate between color spaces: hex, cmyk, rgb, rgba, hsl, hsla, hsva, hsv, hsba or hsb
 - apply a minimum or maximum lightness threshold on a color
 - coerce a color to a certain lightness percent
 - apply a minimum or maximum saturation threshold on a color
@@ -49,7 +49,7 @@ ink('hsl(0,1,1)') // outputs 'rgba(255,255,255,1)'
 ```
 
 optionsObject may contain a format attribute with one of the following
-values: 'hex', 'rgb', 'rgba', 'hsl', 'hsla', 'hsva', 'hsv', 'hsba', 'hsb', 'object'
+values: 'hex', 'cmyk', 'rgb', 'rgba', 'hsl', 'hsla', 'hsva', 'hsv', 'hsba', 'hsb', 'object'
 If opacity manipulation occurs and an output is chosen that doesn't
 support opacity, any opacity inputs will be ignored.
 ```
