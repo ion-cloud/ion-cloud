@@ -222,6 +222,11 @@ function getObjectFromHsla(colorString){
     console.warn(`[Ink] Converting hue value to ${h%360}.`);
     h%=360;
   } //end if
+  if(h<0){
+    console.warn('[Ink] Hue hsl(a) was less than 0.');
+    console.warn(`[Ink] Converting hue value to ${360-h%360}.`);
+    h=360-h%360;
+  } //end if
   s = +s; //convert to number
   if(isNaN(s)||typeof s !== 'number'){
     throw Error('[Ink] Saturation hsl(a) is not a valid number.');
@@ -240,7 +245,7 @@ function getObjectFromHsla(colorString){
   if(isNaN(l)||typeof l !== 'number'){
     throw Error('[Ink] Lightness hsl(a) is not a valid number.');
   } //end if
-  if(v<0){
+  if(l<0){
     console.warn('[Ink] Lightness hsl(a) was less than 0.');
     console.warn('[Ink] Converting lightness to 0...');
     l = 0;
@@ -252,26 +257,20 @@ function getObjectFromHsla(colorString){
   } //end if
   a = +a;
 
-  // make sure we aren't achromatic (gray)
-  // eslint-disable-next-line eqeqeq
-  if(s==0){
-    r = g = b = l;
-  }else{
-    let hue2rgb = (p,q,t)=>{
-          if(t<0) t+=1; //eslint-disable-line no-param-reassign
-          if(t>1) t-=1; //eslint-disable-line no-param-reassign
-          if(t<1/6) return p+(q-p)*6*t;
-          if(t<1/2) return q;
-          if(t<2/3) return p+(q-p)*(2/3-t)*6;
-          return p;
-        },
-        q = l<0.5?l*(1+s):l+s-l*s,
-        p = 2*l-q;
+  // given hue (h), saturation (s) and light (l) convert to rgb
+  let C = (1 - Math.abs(2*l - 1))*s,
+      X = C*(1 - Math.abs(h/60)%2 - 1),
+      m = l - C/2,
+      loc = ()=>{
+        if(h<60) return [C,X,0];
+        if(h<120) return [X,C,0];
+        if(h<180) return [0,C,X];
+        if(h<240) return [0,X,C];
+        if(h<300) return [X,0,C];
+        return [C,0,X];
+      };
 
-    r = hue2rgb(p,q,h+1/3);
-    g = hue2rgb(p,q,h);
-    b = hue2rgb(p,q,h-1/3);
-  } //end if
+  [r,g,b] = [(loc()[0]+m)*255,(loc()[1]+m)*255,(loc()[2]+m)*255];
   return {r,g,b,a};
 } //end getObjectFromHsla()
 
@@ -365,27 +364,25 @@ function getHsbFromObject(object){
   return `hsba(${h},${s},${b})`;
 } //end getHsbFromObject()
 
-function getHslaFromObject(object){
-  let {r,g,b,a} = object,
-      max = Math.max(r,g,b),
+function getHslaFromObject({r,g,b,a}){
+  r/=255;g/=255;b/=255; //eslint-disable-line no-param-reassign
+  let max = Math.max(r,g,b),
       min = Math.min(r,g,b),
+      delta = max-min,
       h,s,l=(max+min)/2;
 
   // make sure it's not achromatic (gray)
-  if(max===min){
+  if(!delta){
     h = s = 0;
   }else{
-    let d = max - min;
-
-    s = l>0.5?d/(2-max-min):d/(max+min);
+    s = delta/(1-Math.abs(2*l-1));
     if(max===r){
-      h = (g-b)/d+(g<b?6:0);
+      h = 60*(((g-b)/delta)%6);
     }else if(max===g){
-      h = (b-r)/d+2;
-    }else if(max===b){
-      h = (r-g)/d+4;
+      h = 60*((b-r)/delta+2);
+    }else{ //max===b
+      h = 60*((r-g)/delta+4);
     } //end if
-    h/=6;
   } //end if
   return `hsla(${h},${s},${l},${a})`;
 } //end getHslaFromObject()
@@ -405,7 +402,7 @@ function getHexFromObject(object){
   return `#${r}${g}${b}`;
 } //end getHexFromObject()
 
-export function ink(colorString,options){
+export function ink(colorString,{...options}){
   let {r,g,b,a} = getColorObject(colorString);
 
   // start with validation
