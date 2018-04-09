@@ -456,14 +456,14 @@ function getHslFromObject(object){
 } //end getHslFromObject()
 
 function getHexFromObject(object){
-  let r = object.r.toString(16),
-      g = object.g.toString(16),
-      b = object.b.toString(16);
+  let r = object.r.toString(16).padLeft(2,'0'),
+      g = object.g.toString(16).padLeft(2,'0'),
+      b = object.b.toString(16).padLeft(2,'0');
 
   return `#${r}${g}${b}`;
 } //end getHexFromObject()
 
-export function ink(colorString,{...options}){
+export function ink(colorString,{...options}={}){
   let {r,g,b,a} = getColorObject(colorString);
 
   // start with validation
