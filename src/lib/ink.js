@@ -596,7 +596,6 @@ export function ink(colorString,{...options}={}){
   if(options.l){
     let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
 
-    console.log('l',l);
     l=+l; //convert to number
     l+=options.l;
     ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
@@ -604,7 +603,6 @@ export function ink(colorString,{...options}={}){
   if(options.s){
     let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
 
-    console.log('s',s);
     s=+s; //convert to number
     s+=+options.s;
     ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
