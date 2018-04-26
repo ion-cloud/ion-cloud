@@ -5,6 +5,7 @@ trust the input color or random generation and games. Here are a few
 of it's main capabilities:
 
 - translate between color spaces: hex, cmyk, rgb, rgba, hsl, hsla, hsva, hsv, hsba or hsb
+- apply weights to r(ed),g(green),b(lue),l(ightness) or s(aturation)
 - apply a minimum or maximum lightness threshold on a color
 - coerce a color to a certain lightness percent
 - apply a minimum or maximum saturation threshold on a color
@@ -60,6 +61,11 @@ ink('#fff',{format: 'object'}) // outputs {r:255,g:255,b:255,a:1}
 optionsObject may contain color weights of values between 0 and 1
 ```
 ink('#fff',{r: 0.5, g:1, b:0.5}) // outputs 'rgba(127,255,127,1)'
+```
+
+optionsObject may contain saturation or lightness weights
+```
+ink('#955',{l: 0.5, s:-0.2,format: 'hex'}) //outputs '#f7f6f6'
 ```
 
 optionsObject may contain an alpha value between 0 and 1

@@ -456,9 +456,9 @@ function getHslFromObject(object){
 } //end getHslFromObject()
 
 function getHexFromObject(object){
-  let r = object.r.toString(16).padLeft(2,'0'),
-      g = object.g.toString(16).padLeft(2,'0'),
-      b = object.b.toString(16).padLeft(2,'0');
+  let r = object.r.toString(16).padStart(2,'0'),
+      g = object.g.toString(16).padStart(2,'0'),
+      b = object.b.toString(16).padStart(2,'0');
 
   return `#${r}${g}${b}`;
 } //end getHexFromObject()
@@ -497,6 +497,12 @@ export function ink(colorString,{...options}={}){
   } //end if
   if(options.b&&options.b<0){
     throw Error('[Ink] Blue color weight must be greater than 0.');
+  } //end if
+  if(options.l&&typeof options.l !== 'number'||options.l&&isNaN(options.l)){
+    throw Error('[Ink] Lightness weight is not a number.');
+  } //end if
+  if(options.s&&typeof options.s !== 'number'||options.s&&isNaN(options.s)){
+    throw Error('[Ink] Saturation weight is not a number.');
   } //end if
   if(options.r<0||options.g<0||options.b<0||options.r>1||options.g>1||options.b>1){
     throw Error('[Ink] Color weights must be inclusively between 0 and 1.');
@@ -587,6 +593,22 @@ export function ink(colorString,{...options}={}){
     if(b>255) b = 255;
   } //end if
   if(options.a) a = options.a;
+  if(options.l){
+    let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
+
+    console.log('l',l);
+    l=+l; //convert to number
+    l+=options.l;
+    ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
+  } //end if
+  if(options.s){
+    let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
+
+    console.log('s',s);
+    s=+s; //convert to number
+    s+=+options.s;
+    ({r,g,b} = getObjectFromHsl(`hsl(${h},${s},${l})`));
+  } //end if
   if(options.minLightness||options.maxLightness||options.lightness){
     let [h,s,l] = getHslFromObject({r,g,b}).replace(/(\(|\)|hsl)/g,'').split(',');
 
