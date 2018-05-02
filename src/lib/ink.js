@@ -135,7 +135,7 @@ function getObjectFromHsva(colorString){
   if(isNaN(h)||typeof h !== 'number'){
     throw Error('[Ink] Hue hsv(a)/hsb(a) is not a valid number.');
   } //end if
-  if(h>360){
+  if(h>360.0001){
     console.warn(`[Ink] Hue hsv(a)/hsb(a) was greater than 360. (${h})`);
     console.warn(`[Ink] Converting hue value to ${h%360}.`);
     h%=360;
@@ -154,7 +154,7 @@ function getObjectFromHsva(colorString){
     console.warn('[Ink] Converting saturation value to 0...');
     s = 0;
   } //end if
-  if(s>1){
+  if(s>1.0001){
     console.warn(`[Ink] Saturation hsv(a)/hsb(a) was greater than 0. (${s})`);
     console.warn('[Ink] Converting saturation value to 1...');
     s = 1;
@@ -168,7 +168,7 @@ function getObjectFromHsva(colorString){
     console.warn('[Ink] Converting brightness to 0...');
     v = 0;
   } //end if
-  if(v>1){
+  if(v>1.0001){
     console.warn(`[Ink] Brightness/value hsv(a)/hsb(a) was greater than 1. (${v})`);
     console.warn('[Ink] Converting brightness to 1...');
     v = 1;
