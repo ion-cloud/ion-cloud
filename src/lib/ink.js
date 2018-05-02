@@ -32,7 +32,7 @@ function getColorObject(colorString){
 function getObjectFromRgba(colorString){
   let [r,g,b,a] = colorString.replace(/(\(|\)|rgba)/g,'').split(',');
 
-  r = +r; //convert to number
+  r = +r|0; //convert to number and floor
   if(isNaN(+r)||typeof r !== 'number'){
     throw Error(`[Ink] Red rgba value is not a valid number. (${r})`);
   } //end if
@@ -46,7 +46,7 @@ function getObjectFromRgba(colorString){
     console.warn('[Ink] Converting red value to 255...');
     r = 255;
   } //end if
-  g = +g; //convert to number
+  g = +g|0; //convert to number and floor
   if(isNaN(+g)||typeof g !== 'number'){
     throw Error('[Ink] Green rgba value is not a valid number.');
   } //end if
@@ -60,7 +60,7 @@ function getObjectFromRgba(colorString){
     console.warn('[Ink] Converting green value to 255...');
     g = 255;
   } //end if
-  b = +b; //convert to number
+  b = +b|0; //convert to number and floor
   if(isNaN(+b)||typeof b !== 'number'){
     throw Error('[Ink] Blue rgba value is not a valid number.');
   } //end if
@@ -82,7 +82,7 @@ function getObjectFromRgba(colorString){
 function getObjectFromRgb(colorString){
   let [r,g,b] = colorString.replace(/(\(|\)|rgb)/g,'').split(',');
 
-  r = +r; //convert to number
+  r = +r|0; //convert to number and floor
   if(isNaN(r)||typeof r !== 'number'){
     throw Error('[Ink] Red rgb value is not a valid number.');
   } //end if
@@ -96,7 +96,7 @@ function getObjectFromRgb(colorString){
     console.warn('[Ink] Converting red value to 255...');
     r = 255;
   } //end if
-  g = +g; //convert to number
+  g = +g|0; //convert to number and floor
   if(isNaN(g)||typeof g !== 'number'){
     throw Error('[Ink] Green rgb value is not a valid number.');
   } //end if
@@ -110,7 +110,7 @@ function getObjectFromRgb(colorString){
     console.warn('[Ink] Converting green value to 255...');
     g = 255;
   } //end if
-  b = +b; //convert to number
+  b = +b|0; //convert to number and floor
   if(isNaN(b)||typeof b !== 'number'){
     throw Error('[Ink] Blue rgb value is not a valid number.');
   } //end if
@@ -201,7 +201,7 @@ function getObjectFromHsla(colorString){
   let [h,s,l,a] = colorString.replace(/(\(|\)|hsla)/g,'').split(','),
       r,g,b;
 
-  h = +h; //convert to number
+  h = +h|0; //convert to number and floor
   if(isNaN(h)||typeof h !== 'number'){
     throw Error('[Ink] Hue hsl(a) is not a valid number.');
   } //end if
@@ -224,10 +224,12 @@ function getObjectFromHsla(colorString){
     console.warn('[Ink] Converting saturation value to 0...');
     s = 0;
   } //end if
-  if(s>1){
+  if(s>1.0001){
     console.warn(`[Ink] Saturation hsl(a) was greater than 0. (${s})`);
     console.warn('[Ink] Converting saturation value to 1...');
     s = 1;
+  }else if(s>1){
+    s = 1; //allow some slack in percision w/o warning
   } //end if
   l = +l; //convert to number
   if(isNaN(l)||typeof l !== 'number'){
@@ -238,10 +240,12 @@ function getObjectFromHsla(colorString){
     console.warn('[Ink] Converting lightness to 0...');
     l = 0;
   } //end if
-  if(l>1){
+  if(l>1.0001){
     console.warn(`[Ink] Lightness hsl(a) was greater than 1. (${l})`);
     console.warn('[Ink] Converting lightness to 1...');
     l = 1;
+  }else if(l>1){
+    l = 1; //allow some slack in percision w/o warning
   } //end if
   a = +a;
 
@@ -274,10 +278,12 @@ function getObjectFromCmyk(colorString){
     console.warn('[Ink] Converting cyan value to 0...');
     c = 0;
   } //end if
-  if(c>1){
+  if(c>1.0001){
     console.warn(`[Ink] Cyan cmyk was greater than 1. (${c})`);
     console.warn('[Ink] Converting cyan value to 1.');
     c = 1;
+  }else if(c>1){
+    c = 1; //allow some off-precision without warning
   } //end if
   m = +m; //convert to number
   if(isNaN(m)||typeof m !== 'number'){
@@ -288,10 +294,12 @@ function getObjectFromCmyk(colorString){
     console.warn('[Ink] Converting magenta value to 0...');
     m = 0;
   } //end if
-  if(m>1){
+  if(m>1.0001){
     console.warn(`[Ink] Magenta cmyk was greater than 1 (${m}).`);
     console.warn('[Ink] Converting magenta value to 1.');
     m = 1;
+  }else if(m>1){
+    m = 1; //allow some off-precision without warning
   } //end if
   y = +y; //convert to number
   if(isNaN(y)||typeof y !== 'number'){
@@ -302,10 +310,12 @@ function getObjectFromCmyk(colorString){
     console.warn('[Ink] Converting yellow value to 0...');
     y = 0;
   } //end if
-  if(y>1){
+  if(y>1.0001){
     console.warn(`[Ink] Yellow cmyk was greater than 1. (${y})`);
     console.warn('[Ink] Converting yellow value to 1.');
     y = 1;
+  }else if(y>1){
+    y = 1; //allow some off-precision without warning
   } //end if
   k = +k; //convert to number
   if(isNaN(k)||typeof k !== 'number'){
@@ -316,10 +326,12 @@ function getObjectFromCmyk(colorString){
     console.warn('[Ink] Converting black value to 0...');
     k = 0;
   } //end if
-  if(k>1){
+  if(k>1.0001){
     console.warn(`[Ink] Black cmyk was greater than 1. (${k})`);
     console.warn('[Ink] Converting black value to 1.');
     k = 1;
+  }else if(k>1){
+    k = 1; //allow some off-precision without warning
   } //end if
   return {r: 255*(1-c)*(1-k),g: 255*(1-m)*(1-k),b: 255*(1-y)*(1-k),a: 1};
 } //end getObjectFromCmyk()
@@ -475,10 +487,12 @@ export function ink(colorString,{...options}={}){
     console.warn('[Ink] Converting alpha to 0...');
     a = 0;
   } //end if
-  if(a>1){
+  if(a>1.0001){
     console.warn(`[Ink] Alpha was greater than 1. (${a})`);
     console.warn('[Ink] Converting alpha to 1...');
     a = 1;
+  }else if(a>1){
+    a = 1; //allow some off-precision without warning
   } //end if
   if(options.r&&typeof options.r !== 'number'||options.r&&isNaN(options.r)){
     throw Error('[Ink] Red color weight is not a number.');
