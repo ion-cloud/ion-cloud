@@ -2,19 +2,24 @@ import path from 'path';
 import webpack from 'webpack';
 import uglify from 'uglifyjs-webpack-plugin';
 
+const env = process.env.NODE_ENV==='production'?'production':'development',
+      filename = env==='production'?'index.js':'index.development.js';
+
 export default {
-  mode: 'production',
+  mode: env,
   devtool: 'source-map',
   entry:{
     app: './src/lib/index.js'
   },
   plugins:[
     new uglify({sourceMap: true}),
-    new webpack.DefinePlugin({'process.env': {NODE_ENV: '"development"'}})
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(env)
+    })
   ],
   output:{
     path: path.resolve('./'),
-    filename:'index.js',
+    filename,
     umdNamedDefine: true,
     libraryTarget: 'umd',
     library: 'ion'

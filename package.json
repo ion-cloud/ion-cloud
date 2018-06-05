@@ -3,20 +3,22 @@
   "version": "1.7.2",
   "description": "Ion Cloud Particle Engine",
   "license": "MIT",
-  "main": "gulpfile.babel.js",
+  "main": "index.js",
   "author": {
     "name": "Nathaniel Inman",
-    "email": "nate041010@gmail.com"
+    "email": "nate@theoestudio.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Nathaniel Inman/ion-cloud.git"
+    "url": "git://github.com/NathanielInman/ion-cloud.git"
   },
   "bugs": {
-    "url": "https://github.com/Nathaniel Inman/ion-cloud/issues"
+    "url": "https://github.com/NathanielInman/ion-cloud/issues"
   },
   "scripts": {
-    "build": "node ./node_modules/webpack/bin/webpack.js --config ./config.babel.js"
+    "build:development": "NODE_ENV=development npx webpack --config ./config.babel.js",
+    "build:production": "NODE_ENV=production npx webpack --config ./config.babel.js",
+    "build": "npm run build:development && npm run build:production"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -38,5 +40,5 @@
     "webpack-cli": "^3.0.2"
   },
   "readmeFilename": "README.md",
-  "homepage": "https://github.com/Nathaniel Inman/space-invaders"
+  "homepage": "https://github.com/NathanielInman/ion-cloud"
 }
