@@ -1,6 +1,6 @@
 {
   "name": "ion-cloud",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Ion Cloud Particle Engine",
   "license": "MIT",
   "main": "index.js",
