@@ -318,6 +318,8 @@ export class Ion{
 
     if(isClear){
       this.ctx.fillStyle = this.clearColor;
+    }else if(typeof particle.color ==='function'){
+      this.ctx.fillStyle = particle.color(particle);
     }else{
       this.ctx.fillStyle = particle.color;
     } //end if
