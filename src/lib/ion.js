@@ -4,7 +4,6 @@ export class Ion{
     this.ctx = easel.ctx;
     this.viewport = easel.viewport;
     this.collection = [];
-    this.clearFrame = true;
     this.quantity = 1;
     this.size = 1;
     this.startX = 0;
@@ -388,14 +387,17 @@ export class Ion{
 
   // this clears everything on the screen
   clearFrame(){
-    this.ctx.fillStyle=this.clearColor;
-    this.ctx.fillRect(0,0,this.viewport.width,this.viewport.height);
+    if(this.background){
+      this.ctx.putImageData(this.background,0,0);
+    }else{
+      this.ctx.fillStyle=this.clearColor;
+      this.ctx.fillRect(0,0,this.viewport.width,this.viewport.height);
+    } //end if
   }
 
   // getFrame is what operates on the tweening functions for the particles,
   // it calls the draw function for each particle after its operations
   getFrame(){
-    if(this.background) this.ctx.putImageData(this.background,0,0);
     this.collection.forEach(p=>{
       if(p.imageClear) this.clear(p);
       this.wind(p);
