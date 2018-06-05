@@ -1,7 +1,8 @@
 export class Ion{
-  constructor(ctx,viewport){
-    this.ctx = ctx;
-    this.viewport = viewport;
+  constructor(easel){
+    this.easel = easel;
+    this.ctx = easel.ctx;
+    this.viewport = easel.viewport;
     this.collection = [];
     this.clearFrame = true;
     this.quantity = 1;
@@ -18,6 +19,7 @@ export class Ion{
     this.tweenCurrent = 0;
     this.tweenDuration = 1000;
     this.tweenSpeed = 1;
+    this.background = null; //if set, will re-apply before each frame
     if(!this.ctx){
       console.warn('Ion initialized without canvas context.');
     } //end if
@@ -189,20 +191,15 @@ export class Ion{
   // to override the function to develop a custom particle generator for more
   // specific applications.
   getNew(id){
-    var ttc = this.tweenCurrent,
-        ttd = this.tweenDuration,
-        ttt = this.tweenType,
-        tsx = this.startX,
-        tsy = this.startY,
-        tdx = this.endX,
-        tdy = this.endY,
-        sx = typeof tsx==='function'?tsx():tsx,
-        sy = typeof tsy==='function'?tsy():tsy,
-        dx = typeof tdx==='function'?tdx():tdx,
-        dy = typeof tdy==='function'?tdy():tdy,
+    let sx = typeof this.startX==='function'?this.startX():this.startX,
+        sy = typeof this.startY==='function'?this.startY():this.startY,
+        dx = typeof this.endX==='function'?this.endX(sx):this.endX,
+        dy = typeof this.endY==='function'?this.endY(sy):this.endY,
+        ttc = this.tweenCurrent, //shorten reference
         c = typeof ttc==='function'?ttc():ttc,
+        ttd = this.tweenDuration, //shorten reference
         d = typeof ttd==='function'?ttd():ttd,
-        tt = typeof ttt==='function'?ttt():ttt,
+        tt = typeof this.tweenType==='function'?this.tweenType():this.tweenType,
         s = typeof this.size==='function'?this.size():this.size,
         image = typeof this.image==='function'?this.image(id):this.image,
         color = typeof this.color==='function'?this.color(id):this.color,
@@ -398,6 +395,7 @@ export class Ion{
   // getFrame is what operates on the tweening functions for the particles,
   // it calls the draw function for each particle after its operations
   getFrame(){
+    if(this.background) this.ctx.putImageData(this.background,0,0);
     this.collection.forEach(p=>{
       if(p.imageClear) this.clear(p);
       this.wind(p);
