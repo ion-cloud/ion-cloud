@@ -4,11 +4,12 @@ import uglify from 'uglifyjs-webpack-plugin';
 
 export default {
   mode: 'production',
+  devtool: 'source-map',
   entry:{
     app: './src/lib/index.js'
   },
   plugins:[
-    new uglify(),
+    new uglify({sourceMap: true}),
     new webpack.DefinePlugin({'process.env': {NODE_ENV: '"development"'}})
   ],
   output:{
