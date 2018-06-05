@@ -201,7 +201,6 @@ export class Ion{
         tt = typeof this.tweenType==='function'?this.tweenType():this.tweenType,
         s = typeof this.size==='function'?this.size():this.size,
         image = typeof this.image==='function'?this.image(id):this.image,
-        color = typeof this.color==='function'?this.color(id):this.color,
         particle = {};
 
     this.onCreate(); //even fired as a new particle is created
@@ -223,7 +222,7 @@ export class Ion{
     particle.size = s; //the particle size
     particle.windX = this.windX||0; //wind functions are ran at runtime
     particle.windY = this.windY||0; //wind function are ran at runtime
-    particle.color = color; //each particle can be rendered with a diff color
+    particle.color = this.color; //each particle can be rendered with a diff color
     particle.image = image; //can be an image or a bit-array
     particle.imageWidth = this.imageWidth; //width in pixels
     particle.imageHeight = this.imageHeight; //height in pixels
@@ -416,4 +415,5 @@ export class Ion{
   }
 } //end class Ion
 export default {Ion};
+
 
