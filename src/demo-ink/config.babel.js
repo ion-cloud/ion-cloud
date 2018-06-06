@@ -7,6 +7,7 @@ import HtmlPlugin    from 'html-webpack-plugin';
 import {index}       from './index.manifest';
 
 export default {
+  mode: 'development',
   watch: true,
   entry:{
     app: ['./src/app/app.js'],
@@ -20,8 +21,7 @@ export default {
   },
   devtool: 'source-map',
   plugins:[
-    new webpack.optimize.CommonsChunkPlugin('vendor'),
-    new webpack.DefinePlugin({'process.env': {NODE_ENV: '"production"'}}),
+    new webpack.DefinePlugin({'process.env.NODE_ENV':'"development"'}),
     new webpack.LoaderOptionsPlugin({
       options: {stylus: {use: [poststylus(['autoprefixer'])]}}
     }),
@@ -30,7 +30,7 @@ export default {
       template: indexTemplate,
       mobile: true,
       injectExtras: index,
-      title: 'demo-ink'
+      title: 'ink demo'
     }),
     new BrowserSync({
       host: 'localhost',
@@ -86,4 +86,3 @@ export default {
     ] //end rules
   } //end module
 };
-

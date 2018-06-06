@@ -1,29 +1,41 @@
 import 'file-loader?name=[name].html!./index.jade';
 import './app.styl';
-import {easel} from 'ion-cloud';
+import {Easel} from 'ion-cloud';
 import {Phaser} from '../../../lib/phaser';
 
 // Launch application if easel was able to create a canvas,
 // if it wasn't then we know canvas isn't supported
-let noscript = document.getElementById('noscript'),
-    topColor = {
-      current: {r:  0,g:  0,b:  0},
-      dawn:    {r:119,g:153,b:187},
-      daytime: {r:204,g:238,b:255},
-      dusk:    {r:135,g: 51,b: 85},
-      midnight:{r:  0,g:  0,b: 17}
-    },
-    bottomColor = {
-      current: {r:  0,g:  0,b:  0},
-      dawn:    {r:153,g: 85,b: 51},
-      daytime: {r:170,g: 85,b: 51},
-      dusk:    {r:  0,g: 17,b: 34},
-      midnight:{r:153,g: 87,b: 22}
-    },
-    colors = [topColor,bottomColor],
-    drawFn = ()=> [0,0,v.w,v.h],
-    gradientFn = ()=> ctx.createLinearGradient(0,0,0,v.h/5*4),
-    dayCycle = new Phaser(100,'dawn',colors,ctx,drawFn,gradientFn);
+let noscript = document.querySelector('noscript'),
+    easel = new Easel(),
+    dayCycle = new Phaser(easel,{
+      x: 0,
+      y: 0,
+      width: easel.viewport.w,
+      height: easel.viewport.h,
+      interval: 100,
+      phase: 'dawn',
+      colors: [
+
+        // top color
+        {
+          current: {r:  0,g:  0,b:  0},
+          dawn:    {r:119,g:153,b:187},
+          daytime: {r:204,g:238,b:255},
+          dusk:    {r:135,g: 51,b: 85},
+          midnight:{r:  0,g:  0,b: 17}
+        },
+
+        // bottom color
+        {
+          current: {r:  0,g:  0,b:  0},
+          dawn:    {r:153,g: 85,b: 51},
+          daytime: {r:170,g: 85,b: 51},
+          dusk:    {r:  0,g: 17,b: 34},
+          midnight:{r:153,g: 87,b: 22}
+        }
+      ],
+      makeGradient: ()=> easel.ctx.createLinearGradient(0,0,0,easel.viewport.h/5*4)
+    });
 
 if(!easel.activated){
   noscript.innerHTML = `
@@ -35,6 +47,12 @@ if(!easel.activated){
   </p>`;
 }else{
   noscript.style.visibility='hidden';
+
+  // this is called when the screen is resized
+  easel.config = ()=>{
+    dayCycle.width = easel.viewport.w;
+    dayCycle.height = easel.viewport.h;
+  };
   easel.onDraw = ()=> dayCycle.drawNext(true);
   (function main(){
     easel.redraw();

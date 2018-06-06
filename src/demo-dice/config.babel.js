@@ -31,7 +31,7 @@ export default {
       template: indexTemplate,
       mobile: true,
       injectExtras: index,
-      title: 'demo-dice'
+      title: 'dice demo'
     }),
     new BrowserSync({
       host: 'localhost',

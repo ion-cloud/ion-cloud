@@ -18,7 +18,7 @@ export default {
   },
   devtool: 'source-map',
   plugins:[
-    new webpack.DefinePlugin({'process.env': {NODE_ENV: '"production"'}}),
+    new webpack.DefinePlugin({'process.env.NODE_ENV': '"development"'}),
     new webpack.LoaderOptionsPlugin({
       options: {stylus: {use: [poststylus(['autoprefixer'])]}}
     }),
@@ -27,7 +27,7 @@ export default {
       template: indexTemplate,
       mobile: true,
       injectExtras: index,
-      title: 'pigeonHoleGeneration'
+      title: 'ion cloud demo'
     }),
     new BrowserSync({
       host: 'localhost',
