@@ -1,23 +1,17 @@
-import {IonCloud} from '../../../lib/';
-
-let scene = new IonCloud();
-
-export {scene};
-
-export function demo(){
+export function demo(scene){
   scene.animate('flame',{
     startX: 250,
     startY: 200,
     width: 100,
     height: 120,
     color: 'rgba(250,50,0,0.05)',
-    quality: 100
+    quantity: 100
   });
   scene.animate('vortex',{
     startX: -250,
     startY: -250,
     size: 400,
-    density: 200,
+    quantity: 200,
     iterations: 300,
     callback: ()=>{
       scene.animate('laser',{
@@ -31,21 +25,27 @@ export function demo(){
   });
   scene.draw();
   scene.clearScene=()=>{
+    let w = scene.easel.viewport.w, //shorten reference
+        h = scene.easel.viewport.h; //shorten reference
+
     // Clear screen
-    ctx.fillStyle='#000';
-    ctx.fillRect(0,0,v.w,v.h);
+    scene.easel.ctx.fillStyle='#000';
+    scene.easel.ctx.fillRect(0,0,w,h);
 
     // Draw a ground
-    ctx.fillStyle='rgba(10,80,10,0.7)';
-    ctx.fillRect(0,v.h/4*3,v.w,v.h/4);
+    scene.easel.ctx.fillStyle='rgba(10,80,10,0.7)';
+    scene.easel.ctx.fillRect(0,h/4*3,w,h/4);
   };
   setInterval(()=>{
+    let w = scene.easel.viewport.w, //shorten reference
+        h = scene.easel.viewport.h; //shorten reference
+
     if(scene.camera.dx===0){
       scene.camera.x--;
     }else{
       scene.camera.x++;
     } //end if
-    if(scene.camera.x<(v.w/2-100)||scene.camera.x>(v.w/2+100))scene.camera.dx^=1;
+    if(scene.camera.x<(w/2-100)||scene.camera.x>(w/2+100))scene.camera.dx^=1;
   },10);
   scene.draw();
 } //end app()

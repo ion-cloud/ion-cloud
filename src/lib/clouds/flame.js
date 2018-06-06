@@ -1,32 +1,31 @@
-import {Ion} from '../ion';
-
-export function flame(name,parameters){
-  let {startX,startY,width,height,color,quality} = parameters,
-      flame = new Ion(2*(quality||100));
+export function flame(parameters){
+  let {startX,startY,width,height,color,quantity} = parameters,
+      flame = new this.Ion(this.easel);
 
   startX = startX||0;
   startY = startY||0;
   width = width||20;
   height = height||100;
+  flame.quantity = quantity;
   flame.states = ['initial'];
   flame.clear = false;
   flame.color = color||'rgba(250,170,0,0.2)';
-  flame.startX = ()=> this.camera.x+startX+r(0,width)-width/2;
+  flame.startX = ()=> this.camera.x+startX+Math.random()*width-width/2;
   flame.startY = ()=> this.camera.y+startY;
   flame.endX = ()=> this.camera.x+startX;
   flame.endY = ()=> this.camera.y+startY-height;
-  flame.windX = ()=> r(0,0.5)-0.25;
-  flame.windY = ()=> r(0,2)-2;
-  flame.tweenType = ()=> r(10,20,true);
-  flame.tweenDuration = ()=> r(300,600,false);
-  flame.onEscape = function onEscape(p){ this.onEnd(p); };
-  flame.onEnd =  flame.reevaluate;
+  flame.windX = ()=> Math.random()*0.5-0.25;
+  flame.windY = ()=> Math.random()*2-2;
+  flame.tweenType = ()=> Math.floor(Math.random()*10+10);
+  flame.tweenDuration = ()=> Math.floor(Math.random()*300+300);
+  flame.onEscape = function onEscape(p){ this.onParticleEnd(p); };
+  flame.onParticleEnd = flame.reevaluate;
   flame.onMove = function onMove(particle){
     let size=(height+width)/4;
 
     // reset after we reach 15%
     if(particle.tweenCurrent>particle.tweenDuration*0.15){
-      this.onEnd(particle);
+      this.onParticleEnd(particle);
     }else{
       particle.size=size-size/particle.tweenDuration*particle.tweenCurrent;
     } //end if

@@ -1,5 +1,6 @@
 export class Ion{
   constructor(easel){
+    this.active = true;
     this.easel = easel;
     this.ctx = easel.ctx;
     this.viewport = easel.viewport;
@@ -19,12 +20,7 @@ export class Ion{
     this.tweenDuration = 1000;
     this.tweenSpeed = 1;
     this.background = null; //if set, will re-apply before each frame
-    if(!this.ctx){
-      console.warn('Ion initialized without canvas context.');
-    } //end if
-    if(!this.viewport){
-      console.warn('Ion initialized without viewport variable.');
-    } //end if
+    if(!this.ctx) throw new Error('Ion initialized without easel.');
   }
 
   // Ease is a tweening function using Robert Penner's equations to identify
@@ -32,6 +28,7 @@ export class Ion{
   // and the normalization of the transition between the two with respect to
   // starting time, a given duration, and the function to impose upon the
   // transition from that start position to it's destination.
+  // eslint-disable-next-line complexity
   tween(particle,axis,optionalOrientation,optionalType,optionalTime){
     let result, //returns the current x or y location
         t = optionalTime||particle.tweenCurrent,
@@ -232,7 +229,7 @@ export class Ion{
   // Reset will perform a small number of operations to reset a particle back
   // to its starting state instead of actually generating a new particle. This
   // can be helpful if you want to retain it's original starting location.
-  reset(particle){
+  static reset(particle){
     particle.x = particle.startX = particle.originX;
     particle.y = particle.startY = particle.originY;
     particle.endX = particle.terminalX; //wind may have corrupted endX
@@ -246,8 +243,8 @@ export class Ion{
   reevaluate(particle){
     let startX = typeof this.startX==='function'?this.startX():this.startX,
         startY = typeof this.startY==='function'?this.startY():this.startY,
-        endX = typeof this.endX==='function'?this.endX():this.endX,
-        endY = typeof this.endY==='function'?this.endY():this.endY;
+        endX = typeof this.endX==='function'?this.endX(startX):this.endX,
+        endY = typeof this.endY==='function'?this.endY(startY):this.endY;
 
     particle.x = particle.originX = particle.startX = startX;
     particle.y = particle.originY = particle.startY = startY;
@@ -283,7 +280,7 @@ export class Ion{
   // instead of them performing their tweening operations unhindered. This
   // gives a more dynamic feel to their movement. The wind patterns and
   // function can be overridden to be dynamic or conditional as desired.
-  wind(particle){
+  static wind(particle){
     if(typeof particle.windX === 'function'){
       particle.endX += particle.windX(particle);
     }else if(particle.windX){
@@ -307,7 +304,7 @@ export class Ion{
   }
 
   // OnMove function is called right before a particle is moved
-  onMove(particle){}
+  onMove(particle){} //eslint-disable-line
 
   // Draw simply draws a particle
   draw(particle,isClear){
@@ -357,22 +354,23 @@ export class Ion{
   // OnCreate function is called when a particle is created for the first
   // time. This allows one to keep track of how far into the creation of all
   // the particles one is given the particle total that they already control.
-  onCreate(){}
+  onCreate(){} //eslint-disable-line
 
   // OnParticleEnd function is called after a particle finishes its tweening
   // motion. This is merely a template function that is required to be
   // overridden.
-  onParticleEnd(){}
+  onParticleEnd(){} //eslint-disable-line
 
   // OnEscape function is called after a particle leaves the view space.
   // This is merely a template function that is required to be overridden.
-  onEscape(){}
+  onEscape(){} //eslint-disable-line
 
   // Process is the automatic function that calls the getFrame main
   // function and after updating, queues the next update frame. It will
   // also auto-clear. This function is mostly used for testing a single
   // Ion instance. Most mock-ups of Ion should be done using the getFrame
   process(){
+    if(!this.active) return;
     this.clearFrame();
     this.getFrame();
     this.afterDraw();
@@ -384,7 +382,7 @@ export class Ion{
   }
 
   // afterDraw function is called after an entire frame has finished rendering
-  afterDraw(){}
+  afterDraw(){} //eslint-disable-line
 
   // this clears everything on the screen
   clearFrame(){
@@ -401,7 +399,7 @@ export class Ion{
   getFrame(){
     this.collection.forEach(p=>{
       if(p.imageClear) this.clear(p);
-      this.wind(p);
+      this.constructor.wind(p);
       this.onMove(p);
       if(p.x<0||p.y<0||p.x>this.viewport.width||p.y>this.viewport.height){
         this.onEscape(p);
@@ -415,5 +413,3 @@ export class Ion{
   }
 } //end class Ion
 export default {Ion};
-
-
