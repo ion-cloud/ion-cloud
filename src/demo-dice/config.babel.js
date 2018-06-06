@@ -9,6 +9,7 @@ import {index}       from './index.manifest';
 let env = JSON.stringify(process.env.NODE_ENV)||'"production"';
 
 export default {
+  mode: 'development',
   entry:{
     app: ['./src/app/app.js'],
     vendor: ['vue','vue-router','buefy']
@@ -21,14 +22,7 @@ export default {
   },
   devtool: 'source-map',
   plugins:[
-    new webpack.optimize.CommonsChunkPlugin('vendor'),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: false,
-      compress: {warnings: false},
-      output: {comments: false},
-      sourceMap: true
-    }),
-    new webpack.DefinePlugin({'process.env': {NODE_ENV: env}}),
+    new webpack.DefinePlugin({'process.env.NODE_ENV': env}),
     new webpack.LoaderOptionsPlugin({
       options: {stylus: {use: [poststylus(['autoprefixer'])]}}
     }),

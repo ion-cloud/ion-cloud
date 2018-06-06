@@ -55,7 +55,7 @@ Vue.component('app',{
           value: player-dataEnemy[i]
         });
       });
-      combinedArray = combinedArray.sort((a,b,i)=> a.value>b.value?1:-1);
+      combinedArray = combinedArray.sort((a,b)=> a.value>b.value?1:-1);
       dataPlayer = combinedArray.map(o=>o.player);
       dataEnemy = combinedArray.map(o=>o.enemy);
       categories = combinedArray.map(o=>o.category);
@@ -70,8 +70,7 @@ Vue.component('app',{
         ]
       };
 
-      // damage chart is just random damage numbers using the 
-      // input boxes
+      // damage chart is just random damage numbers using the input boxes
       let dataPlayerDamage = [],
           dataEnemyDamage = [];
 
