@@ -87,6 +87,8 @@ gnats.onParticleEnd = atom=>{
 gnats.populate(); //now we populate them all at once (you can pass a ms defer timer)
 gnats.process(); //since we're not using IonCloud we'll allow Ion to handle the animation
 ```
+An fountain example that shows how `windStatic` may be used is available [here](https://codepen.io/NathanielInman/pen/LEbpye).
+An waterfall example may be seen [here](https://codepen.io/NathanielInman/pen/yyVYXe).
 
 ## IonCloud Setup
 Setting up ion cloud is pretty simple:

@@ -3,7 +3,6 @@ export class Ion{
     this.active = true;
     this.easel = easel;
     this.ctx = easel.ctx;
-    this.viewport = easel.viewport;
     this.collection = [];
     this.quantity = 1;
     this.size = 1;
@@ -13,6 +12,7 @@ export class Ion{
     this.endY = 1;
     this.windX = 0;
     this.windY = 0;
+    this.clear = true;
     this.color = '#48F';
     this.clearColor = '#000';
     this.tweenType = 0;
@@ -28,75 +28,68 @@ export class Ion{
   // and the normalization of the transition between the two with respect to
   // starting time, a given duration, and the function to impose upon the
   // transition from that start position to it's destination.
-  // eslint-disable-next-line complexity
-  tween(particle,axis,optionalOrientation,optionalType,optionalTime){
-    let result, //returns the current x or y location
-        t = optionalTime||particle.tweenCurrent,
-        d = particle.tweenDuration,
-        o = optionalOrientation||0.3, //modification orientation strength
-        type = optionalType||particle.tweenType,
-        b,c; //beginning position and change in position
+  /* eslint-disable */
+  tween(particle,axis,{
+    o=0.3, //optional strength value
+    d=particle.tweenDuration, //duration
+    t=particle.tweenCurrent, //current time
+    type=particle.tweenType, //tween type
+    b=axis==='x'?particle.startX:particle.startY, //beginning value
+    c=axis==='x'?particle.endX-particle.startX:particle.endY-particle.startY
+  }={}){
+    let result; //returns computed x or y location
 
-    if(axis==='x'){
-      b = particle.startX;
-      c = particle.endX-particle.startX;
-    }else{
-      b = particle.startY;
-      c = particle.endY-particle.startY;
-    } //end if
-    if(type===0||type==='linear'){
+    if(type==='linear'){
       result = c*t/d+b;
-    }else if(type===1||type==='ease-in-quad'){
+    }else if(type==='ease-in-quad'){
       result = c*(t/=d)*t+b;
-    }else if(type===2||type==='ease-out-quad'){
+    }else if(type==='ease-out-quad'){
       result = -c*(t/=d)*(t-2)+b;
-    }else if(type===3||type==='ease-in-out-quad'){
+    }else if(type==='ease-in-out-quad'){
       result = (t/=d/2)<1?c/2*t*t+b:-c/2*((--t)*(t-2)-1)+b;
-    }else if(type===4||type==='ease-in-cubic'){
+    }else if(type==='ease-in-cubic'){
       result = c*(t/=d)*t*t+b;
-    }else if(type===5||type==='ease-out-cubic'){
+    }else if(type==='ease-out-cubic'){
       result = c*((t=t/d-1)*t*t+1)+b;
-    }else if(type===6||type==='ease-in-out-cubic'){
+    }else if(type==='ease-in-out-cubic'){
       result = ((t/=d/2)<1)?c/2*t*t*t+b:c/2*((t-=2)*t*t+2)+b;
-    }else if(type===7||type==='ease-in-quart'){
+    }else if(type==='ease-in-quart'){
       result = c*(t/=d)*t*t*t+b;
-    }else if(type===8||type==='ease-out-quart'){
+    }else if(type==='ease-out-quart'){
       result = -c*((t=t/d-1)*t*t*t-1)+b;
-    }else if(type===9||type==='ease-in-out-quart'){
+    }else if(type==='ease-in-out-quart'){
       result = ((t/=d/2)<1)?c/2*t*t*t*t+b:-c/2*((t-=2)*t*t*t-2)+b;
-    }else if(type===10||type==='ease-in-quint'){
+    }else if(type==='ease-in-quint'){
       result = c*(t/=d)*t*t*t*t+b;
-    }else if(type===11||type==='ease-out-quint'){
+    }else if(type==='ease-out-quint'){
       result = c*((t=t/d-1)*t*t*t*t+1)+b;
-    }else if(type===12||type==='ease-in-out-quint'){
+    }else if(type==='ease-in-out-quint'){
       result = ((t/=d/2)<1)?c/2*t*t*t*t*t+b:c/2*((t-=2)*t*t*t*t+2)+b;
-    }else if(type===13||type==='ease-in-sine'){
+    }else if(type==='ease-in-sine'){
       result = -c*Math.cos(t/d*(Math.PI/2))+c+b;
-    }else if(type===14||type==='ease-out-sine'){
+    }else if(type==='ease-out-sine'){
+      result = c*Math.sin(t/d*(Math.PI/2))+b;
+    }else if(type==='ease-in-out-sine'){
       result = -c/2*(Math.cos(Math.PI*t/d)-1)+b;
-    }else if(type===15||type==='ease-in-exponential'){
+    }else if(type==='ease-in-exponential'){
       result = (t===0)?b:c*Math.pow(2,10*(t/d-1))+b;
-    }else if(type===16||type==='ease-out-exponential'){
+    }else if(type==='ease-out-exponential'){
       result = (t===d)?b+c:c*(-Math.pow(2,-10*t/d)+1)+b;
-    }else if(type===17||type==='ease-in-out-exponential'){
-      if(t===0){
-        result = b;
-      }else if(t===d){
-        result = b+c;
-      }else if((t/=d/2)<1){
-        result = c/2*Math.pow(2,10*(t-1))+b;
-      }else{
-        result = c/2*(Math.pow(2,-10*--t)+2)+b;
-      } //end if
-    }else if(type===18||type==='ease-in-circular'){
+    }else if(type==='ease-in-out-exponential'){
+      result =
+        t===0? b:
+        t===d? b+c:
+        (t/=d/2)<1? c/2*Math.pow(2,10*(t-1))+b:
+        c/2*(-Math.pow(2,-10*--t)+2)+b
+    }else if(type==='ease-in-circular'){
       result = -c*(Math.sqrt(1-(t/=d)*t)-1)+b;
-    }else if(type===19||type==='ease-out-circular'){
+    }else if(type==='ease-out-circular'){
       result = c*Math.sqrt(1-(t=t/d-1)*t)+b;
-    }else if(type===20||type==='ease-in-out-circular'){
+    }else if(type==='ease-in-out-circular'){
       result = ((t/=d/2)<1)?-c/2*(Math.sqrt(1-t*t)-1)+b:c/2*(Math.sqrt(1-(t-=2)*t)+1)+b;
-    }else if(type===21||type==='ease-in-elastic-loose'){
-      result = this.tween(particle,axis,0.5,'ease-in-elastic-normal');
-    }else if(type===22||type==='ease-in-elastic-normal'){
+    }else if(type==='ease-in-elastic-loose'){
+      result = this.tween(particle,axis,{o: 0.5,type: 'ease-in-elastic-normal'});
+    }else if(type==='ease-in-elastic-normal'){
       result = (()=>{
         var s=1.70158,p=0,a=c;
 
@@ -110,11 +103,11 @@ export class Ion{
         } //end if
         return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
       })();
-    }else if(type===23||type==='ease-in-elastic-string'){
-      result = this.tween(particle,axis,0.1,'ease-in-elastic-normal');
-    }else if(type===24||type==='ease-out-elastic-loose'){
-      result = this.tween(particle,axis,0.5,'ease-out-elastic-normal');
-    }else if(type===25||type==='ease-out-elastic-normal'){
+    }else if(type==='ease-in-elastic-strong'){
+      result = this.tween(particle,axis,{o: 0.1,type: 'ease-in-elastic-normal'});
+    }else if(type==='ease-out-elastic-loose'){
+      result = this.tween(particle,axis,{o: 0.5,type: 'ease-out-elastic-normal'});
+    }else if(type==='ease-out-elastic-normal'){
       result = (()=>{
         var s=1.70158,p=0,a=c;
 
@@ -128,11 +121,11 @@ export class Ion{
         } //end if
         return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
       })();
-    }else if(type===26||type==='ease-out-elastic-strong'){
-      result = this.tween(particle,axis,0.1,'ease-out-elastic-normal');
-    }else if(type===27||type==='ease-in-out-elastic-loose'){
-      result = this.tween(particle,axis,0.5,'ease-in-out-elastic-normal');
-    }else if(type===28||type==='ease-in-out-elastic-normal'){
+    }else if(type==='ease-out-elastic-strong'){
+      result = this.tween(particle,axis,{o: 0.1,type: 'ease-out-elastic-normal'});
+    }else if(type==='ease-in-out-elastic-loose'){
+      result = this.tween(particle,axis,{o: 0.5,type: 'ease-in-out-elastic-normal'});
+    }else if(type==='ease-in-out-elastic-normal'){
       result = (()=>{
         var s=1.70158,p=0,a=c;
 
@@ -147,13 +140,19 @@ export class Ion{
         if (t < 1) return -0.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
         return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*0.5 + c + b;
       })();
-    }else if(type===29||type==='ease-in-out-elastic-strong'){
-      result = this.tween(particle,axis,0.1,'ease-in-out-elastic-normal');
-    }else if(type===30||type==='ease-in-back'){
-      result = c*(t/=d)*t*((1.70158+1)*t - 1.70158) + b;
-    }else if(type===31||type==='ease-out-back'){
-      result = c*((t=t/d-1)*t*((1.70158+1)*t + 1.70158) + 1) + b;
-    }else if(type===32||type==='ease-in-out-back'){
+    }else if(type==='ease-in-out-elastic-strong'){
+      result = this.tween(particle,axis,{o: 0.1,type: 'ease-in-out-elastic-normal'});
+
+    //TODO: ease-in-back can have more or less strengths, this one is middle
+    }else if(type==='ease-in-back'){
+      let s = 1.70158;
+
+      result = c*(t/=d)*t*((s+1)*t - s) + b;
+    }else if(type==='ease-out-back'){
+      let s = 1.70158;
+
+      result = c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+    }else if(type==='ease-in-out-back'){
       let s = 1.70158;
 
       if((t/=d/2)<1){
@@ -161,9 +160,9 @@ export class Ion{
       }else{
         result = c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
       } //end if
-    }else if(type===33||type==='ease-in-bounce'){
-      result = c-this.tween(particle,axis,0,'ease-out-bounce')+b;
-    }else if(type===34||type==='ease-out-bounce'){
+    }else if(type==='ease-in-bounce'){
+      result = c-this.tween(particle,axis,{t:d-t,b:0,c,d,type:'ease-out-bounce'})+b;
+    }else if(type==='ease-out-bounce'){
       if ((t/=d) < (1/2.75)) {
         result = c*(7.5625*t*t) + b;
       } else if (t < (2/2.75)) {
@@ -173,15 +172,16 @@ export class Ion{
       } else {
         result = c*(7.5625*(t-=(2.625/2.75))*t + 0.984375) + b;
       } //end if
-    }else if(type===35||type==='ease-in-out-bounce'){
+    }else if(type==='ease-in-out-bounce'){
       if(t<d/2){
-        result = this.tween(particle,axis,0,'ease-in-bounce',t*2)*0.5+b;
+        result = this.tween(particle,axis,{t:t*2,b:0,c,d,type:'ease-in-bounce'})*0.5+b;
       }else{
-        result = this.tween(particle,axis,0,'ease-out-bounce',t*2-d)*0.5+c*0.5+b;
+        result = this.tween(particle,axis,{t:t*2-d,b:0,c,d,type:'ease-out-bounce'})*0.5+c*0.5+b;
       } //end if
     }//end if
     return result;
   }
+  /* eslint-enable */
 
   // getNew will create a new particle and return that result. It's possible
   // to override the function to develop a custom particle generator for more
@@ -217,8 +217,13 @@ export class Ion{
     particle.tweenType = tt;
     particle.onEnd = this.onParticleEnd;
     particle.size = s; //the particle size
-    particle.windX = this.windX||0; //wind functions are ran at runtime
-    particle.windY = this.windY||0; //wind function are ran at runtime
+    if(this.windStatic){
+      particle.windX = typeof this.windX==='function'?this.windX():this.windX;
+      particle.windY = typeof this.windY==='function'?this.windY():this.windY;
+    }else{
+      particle.windX = this.windX||0; //wind functions are ran at runtime
+      particle.windY = this.windY||0; //wind function are ran at runtime
+    } //end if
     particle.color = this.color; //each particle can be rendered with a diff color
     particle.image = image; //can be an image or a bit-array
     particle.imageWidth = this.imageWidth; //width in pixels
@@ -250,6 +255,10 @@ export class Ion{
     particle.y = particle.originY = particle.startY = startY;
     particle.endX = particle.terminalX = endX;
     particle.endY = particle.terminalY = endY;
+    if(this.windStatic){
+      particle.windX = typeof this.windX==='function'?this.windX():this.windX;
+      particle.windY = typeof this.windY==='function'?this.windY():this.windY;
+    } //end if
     particle.tweenCurrent = 0;
   }
 
@@ -386,11 +395,11 @@ export class Ion{
 
   // this clears everything on the screen
   clearFrame(){
-    if(this.background){
+    if(this.clear&&this.background){
       this.ctx.putImageData(this.background,0,0);
-    }else{
+    }else if(this.clear){
       this.ctx.fillStyle=this.clearColor;
-      this.ctx.fillRect(0,0,this.viewport.width,this.viewport.height);
+      this.ctx.fillRect(0,0,this.easel.viewport.w,this.easel.viewport.h);
     } //end if
   }
 
@@ -401,7 +410,7 @@ export class Ion{
       if(p.imageClear) this.clear(p);
       this.constructor.wind(p);
       this.onMove(p);
-      if(p.x<0||p.y<0||p.x>this.viewport.width||p.y>this.viewport.height){
+      if(p.x<0||p.y<0||p.x>this.easel.viewport.w||p.y>this.easel.viewport.h){
         this.onEscape(p);
       } //end if
       if((p.x|0)!==(p.endX|0)) p.x=this.tween(p,'x');
@@ -412,4 +421,3 @@ export class Ion{
     });
   }
 } //end class Ion
-export default {Ion};
