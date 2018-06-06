@@ -131,19 +131,20 @@ Ink requires no setup and is a collection of utility libraries. Here are all tha
   - convert2hlsa(colorString)
   - convert2hsl(colorString)
   - convert2hex(colorString)
+  
 Merely import them from `ion-cloud` like so:
 ```
 import {ink} from 'ion-cloud';
 
 console.log(ink('#fff',{format: 'rgb'})); //outputs 'rgb(255,255,255)'
 ```
-You can view the full `ink` help files and functions [here](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ink)
+You can view the full `ink` help files and functions [here](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ink).
 
 ## Phaser Setup
 Please see example [here](https://github.com/NathanielInman/ion-cloud/blob/master/src/demo-phaser/src/app/app.js).
 
 ## Dice Setup
-Dice is merely imported, then pass it an instance of the dice string like so:
+Merely import the Dice library and pass it a string to create an instance like so:
 ```
 import {Dice} from 'ion-cloud';
 
