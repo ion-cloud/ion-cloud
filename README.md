@@ -141,7 +141,7 @@ console.log(ink('#fff',{format: 'rgb'})); //outputs 'rgb(255,255,255)'
 You can view the full `ink` help files and functions [here](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ink).
 
 ## Phaser Setup
-Please see example [here](https://github.com/NathanielInman/ion-cloud/blob/master/src/demo-phaser/src/app/app.js).
+Please see code example [here](https://github.com/NathanielInman/ion-cloud/blob/master/src/demo-phaser/src/app/app.js).
 
 ## Dice Setup
 Merely import the Dice library and pass it a string to create an instance like so:
@@ -154,4 +154,4 @@ console.log(myDice.min); //shows the minimum amount possible
 console.log(myDice.max); //shows the maximum amount possible
 console.log(myDice.roll()); //generates a random roll based on the string
 ```
-You can see a working example [here](https://github.com/NathanielInman/ion-cloud/blob/master/src/demo-dice/src/app/app.js).
+Please see code example [here](https://github.com/NathanielInman/ion-cloud/blob/master/src/demo-dice/src/app/app.js).
