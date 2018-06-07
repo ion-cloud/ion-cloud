@@ -89,7 +89,7 @@ export class Ion{
       result = ((t/=d/2)<1)?-c/2*(Math.sqrt(1-t*t)-1)+b:c/2*(Math.sqrt(1-(t-=2)*t)+1)+b;
     }else if(type==='ease-in-elastic-loose'){
       result = this.tween(particle,axis,{o: 0.5,type: 'ease-in-elastic-normal'});
-    }else if(type==='ease-in-elastic-normal'){
+    }else if(type==='ease-in-elastic'){
       result = (()=>{
         var s=1.70158,p=0,a=c;
 
@@ -107,7 +107,7 @@ export class Ion{
       result = this.tween(particle,axis,{o: 0.1,type: 'ease-in-elastic-normal'});
     }else if(type==='ease-out-elastic-loose'){
       result = this.tween(particle,axis,{o: 0.5,type: 'ease-out-elastic-normal'});
-    }else if(type==='ease-out-elastic-normal'){
+    }else if(type==='ease-out-elastic'){
       result = (()=>{
         var s=1.70158,p=0,a=c;
 
@@ -200,7 +200,7 @@ export class Ion{
         image = typeof this.image==='function'?this.image(id):this.image,
         particle = {};
 
-    this.onCreate(); //even fired as a new particle is created
+    this.onCreate(particle); //event fired as a new particle is created
     particle.id = id; //for referencing each particle outside library
     particle.startX = sx;
     particle.startY = sy;
@@ -228,6 +228,7 @@ export class Ion{
     particle.image = image; //can be an image or a bit-array
     particle.imageWidth = this.imageWidth; //width in pixels
     particle.imageHeight = this.imageHeight; //height in pixels
+    this.afterCreate(particle); //event fired after a new particle is created
     return particle;
   }
 
@@ -312,9 +313,6 @@ export class Ion{
     } //end if
   }
 
-  // OnMove function is called right before a particle is moved
-  onMove(particle){} //eslint-disable-line
-
   // Draw simply draws a particle
   draw(particle,isClear){
     let p = particle,
@@ -360,20 +358,6 @@ export class Ion{
     this.draw(particle,true);
   }
 
-  // OnCreate function is called when a particle is created for the first
-  // time. This allows one to keep track of how far into the creation of all
-  // the particles one is given the particle total that they already control.
-  onCreate(){} //eslint-disable-line
-
-  // OnParticleEnd function is called after a particle finishes its tweening
-  // motion. This is merely a template function that is required to be
-  // overridden.
-  onParticleEnd(){} //eslint-disable-line
-
-  // OnEscape function is called after a particle leaves the view space.
-  // This is merely a template function that is required to be overridden.
-  onEscape(){} //eslint-disable-line
-
   // Process is the automatic function that calls the getFrame main
   // function and after updating, queues the next update frame. It will
   // also auto-clear. This function is mostly used for testing a single
@@ -389,9 +373,6 @@ export class Ion{
       setTimeout(()=>this.process(),this.tweenSpeed);
     } //end if
   }
-
-  // afterDraw function is called after an entire frame has finished rendering
-  afterDraw(){} //eslint-disable-line
 
   // this clears everything on the screen
   clearFrame(){
@@ -420,4 +401,27 @@ export class Ion{
       this.draw(p);
     });
   }
+
+  // OnMove function is called right before a particle is moved
+  onMove(){} //eslint-disable-line
+
+  // This is an overridable lifecycle hook function that is called right before
+  // any properties are added to a particle and before it begins animating.
+  onCreate(){} //eslint-disable-line
+
+  // This is an overridable lifecycle hook function that is called right after
+  // all properties are added to a particle and before it begins animating.
+  afterCreate(){} //eslint-disable-line
+
+  // OnParticleEnd function is called after a particle finishes its tweening
+  // motion. This is merely a template function that is required to be
+  // overridden.
+  onParticleEnd(){} //eslint-disable-line
+
+  // OnEscape function is called after a particle leaves the view space.
+  // This is merely a template function that is required to be overridden.
+  onEscape(){} //eslint-disable-line
+
+  // afterDraw function is called after an entire frame has finished rendering
+  afterDraw(){} //eslint-disable-line
 } //end class Ion

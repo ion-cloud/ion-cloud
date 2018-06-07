@@ -1,8 +1,16 @@
 # ion-cloud
 [![Build Status](https://travis-ci.org/NathanielInman/ion-cloud.svg?branch=master)](https://travis-ci.org/NathanielInman/ion-cloud) [![dependency Status](https://david-dm.org/NathanielInman/ion-cloud/status.svg?style=flat)](https://david-dm.org/NathanielInman/ion-cloud) [![devDependency Status](https://david-dm.org/NathanielInman/ion-cloud/dev-status.svg?style=flat)](https://david-dm.org/NathanielInman/ion-cloud#info=devDependencies)
 
-## Visual Example
 ![Example](https://media.giphy.com/media/1mhjCBjncfr37OiNd1/giphy.gif)
+
+# Table of Contents
+* [Description](#description)
+* [Easel Setup](#easel-setup)
+* [Ion Setup](#ion-setup)
+* [IonCloud Setup](#ioncloud-setup)
+* [Ink Setup](#ink-setup)
+* [Phaser Setup](#phaser-setup)
+* [Dice Setup](#dice-setup)
 
 ## Description
 Ion Cloud is a *tiny* 2d animation library for javascript, it comes with 6 choosable parts:
@@ -22,6 +30,8 @@ Ion Cloud is a *tiny* 2d animation library for javascript, it comes with 6 choos
   - **Phaser** : *gradient animation and initialization helper*
   - **Dice**: *take a complex dice string and compute results based on it.*
     - `3d8+23-2d4` would roll 3 8-sided dice, add 23 then subtract the results of 2 rolled 4-sided dice
+
+If you need help setting up a project using `ion-cloud` you can use a scaffolding engine like `slush`. For more information see [this project](https://www.npmjs.com/package/slush-jugs).
 
 ## Easel Setup
 The actual setup is really just one line of code, here we set it up and draw text in the center of the screen.
@@ -56,6 +66,9 @@ easel.redraw(); //initiate a draw causing the main loop.
 Ion can be used individually or with IonCloud. A single Ion instance is a collection of particles. IonCloud helps facilitate the animation of multiple instances into a scene and provide scene management. Setting up with IonCloud is in another section below. Here we will create an animation using Ion and Easel that will look like *gnats* floating around the screen.
 
 You can view the following example running on codepen [here](https://codepen.io/NathanielInman/pen/ogYjwE).
+An fountain example that shows how `windStatic` may be used is available [here](https://codepen.io/NathanielInman/pen/LEbpye).
+An waterfall example may be seen [here](https://codepen.io/NathanielInman/pen/yyVYXe).
+For detailed help information on Ion see [here](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ion).
 ```
 import {Ion,Easel} from 'ion-cloud';
 
@@ -87,8 +100,6 @@ gnats.onParticleEnd = atom=>{
 gnats.populate(); //now we populate them all at once (you can pass a ms defer timer)
 gnats.process(); //since we're not using IonCloud we'll allow Ion to handle the animation
 ```
-An fountain example that shows how `windStatic` may be used is available [here](https://codepen.io/NathanielInman/pen/LEbpye).
-An waterfall example may be seen [here](https://codepen.io/NathanielInman/pen/yyVYXe).
 
 ## IonCloud Setup
 Setting up ion cloud is pretty simple:
