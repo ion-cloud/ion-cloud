@@ -91,6 +91,7 @@ Ion is a simple particle engine used in 2d animations. In order to help facilita
 You can view the following example running on codepen [here](https://codepen.io/NathanielInman/pen/ogYjwE).
 An fountain example that shows how `windStatic` may be used is available [here](https://codepen.io/NathanielInman/pen/LEbpye).
 An waterfall example may be seen [here](https://codepen.io/NathanielInman/pen/yyVYXe).
+A bubble example may be seen [here](https://codepen.io/NathanielInman/pen/pKyNVb).
 
 ```
 import {Ion,Easel} from 'ion-cloud';

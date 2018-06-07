@@ -69,6 +69,7 @@ Ion can be used individually or with IonCloud. A single Ion instance is a collec
 You can view the following example running on codepen [here](https://codepen.io/NathanielInman/pen/ogYjwE).
 A fountain example that shows how `windStatic` may be used is available [here](https://codepen.io/NathanielInman/pen/LEbpye).
 A waterfall example may be seen [here](https://codepen.io/NathanielInman/pen/yyVYXe).
+A bubble example may be seen [here](https://codepen.io/NathanielInman/pen/pKyNVb).
 For detailed help information on Ion see [here](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ion).
 ```
 import {Ion,Easel} from 'ion-cloud';
