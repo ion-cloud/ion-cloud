@@ -16,6 +16,7 @@
 Ion Cloud is a *tiny* 2d animation library for javascript, it comes with 6 choosable parts:
   - **Easel** : *sets up a canvas that can fill a screen and automatically resize*
   - **Ion** : *tweaning and basic animation instance*
+    - [here is the documentation](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ion)
   - **Ion Cloud** : *animation collections and scene management*
   - **Ink** : *A tiny color manipulation and translation library with robust validation and error handling that shines in places where you can't trust the input color or random generation and games*
     - translate between color spaces: hex, cmyk, rgb, rgba, hsl, hsla, hsva, hsv, hsba or hsb
@@ -34,7 +35,7 @@ Ion Cloud is a *tiny* 2d animation library for javascript, it comes with 6 choos
 If you need help setting up a project using `ion-cloud` you can use a scaffolding engine like `slush`. For more information see [this project](https://www.npmjs.com/package/slush-jugs).
 
 ## Easel Setup
-The actual setup is really just one line of code, here we set it up and draw text in the center of the screen.
+The actual setup is really just one line of code. Here we set easel up and draw text in the center of the screen.
 ```
 import {Easel} from 'ion-cloud';
 
@@ -45,7 +46,7 @@ easel.ctx.textAlign='center';
 easel.ctx.fillStyle='#f00';
 easel.ctx.fillText('This text is in the center of the screen.',easel.viewport.w/2,easel.viewport.h/2);
 ```
-If you want to run code everytime the window is resized you can attribute it to the `config` function.
+If you want to run code every time the window is resized you can attribute it to the `config` function.
 ```
 easel.config = ()=>{
 
@@ -66,8 +67,8 @@ easel.redraw(); //initiate a draw causing the main loop.
 Ion can be used individually or with IonCloud. A single Ion instance is a collection of particles. IonCloud helps facilitate the animation of multiple instances into a scene and provide scene management. Setting up with IonCloud is in another section below. Here we will create an animation using Ion and Easel that will look like *gnats* floating around the screen.
 
 You can view the following example running on codepen [here](https://codepen.io/NathanielInman/pen/ogYjwE).
-An fountain example that shows how `windStatic` may be used is available [here](https://codepen.io/NathanielInman/pen/LEbpye).
-An waterfall example may be seen [here](https://codepen.io/NathanielInman/pen/yyVYXe).
+A fountain example that shows how `windStatic` may be used is available [here](https://codepen.io/NathanielInman/pen/LEbpye).
+A waterfall example may be seen [here](https://codepen.io/NathanielInman/pen/yyVYXe).
 For detailed help information on Ion see [here](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ion).
 ```
 import {Ion,Easel} from 'ion-cloud';
@@ -144,12 +145,13 @@ Ink requires no setup and is a collection of utility libraries. Here are all tha
   - convert2hlsa(colorString)
   - convert2hsl(colorString)
   - convert2hex(colorString)
-  
+
 Merely import them from `ion-cloud` like so:
 ```
 import {ink} from 'ion-cloud';
 
-console.log(ink('#fff',{format: 'rgb'})); //outputs 'rgb(255,255,255)'
+//outputs 'rgb(255,255,255)'
+console.log(ink('#fff',{format: 'rgb'}));
 ```
 You can view the full `ink` help files and functions [here](https://github.com/NathanielInman/ion-cloud/tree/master/src/demo-ink).
 
