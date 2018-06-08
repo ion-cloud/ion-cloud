@@ -197,16 +197,16 @@ export class Ion{
   // to override the function to develop a custom particle generator for more
   // specific applications.
   getNew(id){
-    let sx = typeof this.startX==='function'?this.startX():this.startX,
-        sy = typeof this.startY==='function'?this.startY():this.startY,
-        dx = typeof this.endX==='function'?this.endX(sx):this.endX,
-        dy = typeof this.endY==='function'?this.endY(sy):this.endY,
+    let sx = typeof this.startX==='function'?this.startX(id):this.startX,
+        sy = typeof this.startY==='function'?this.startY(id):this.startY,
+        dx = typeof this.endX==='function'?this.endX(id,sx):this.endX,
+        dy = typeof this.endY==='function'?this.endY(id,sy):this.endY,
         ttc = this.tweenCurrent, //shorten reference
-        c = typeof ttc==='function'?ttc():ttc,
+        c = typeof ttc==='function'?ttc(id):ttc,
         ttd = this.tweenDuration, //shorten reference
-        d = typeof ttd==='function'?ttd():ttd,
-        tt = typeof this.tweenType==='function'?this.tweenType():this.tweenType,
-        s = typeof this.size==='function'?this.size():this.size,
+        d = typeof ttd==='function'?ttd(id):ttd,
+        tt = typeof this.tweenType==='function'?this.tweenType(id):this.tweenType,
+        s = typeof this.size==='function'?this.size(id):this.size,
         image = typeof this.image==='function'?this.image(id):this.image,
         particle = {};
 
@@ -253,18 +253,18 @@ export class Ion{
   // conditions of the particle; that is, it may only reset if the starting
   // conditions aren't functions
   reevaluate(particle){
-    let startX = typeof this.startX==='function'?this.startX():this.startX,
-        startY = typeof this.startY==='function'?this.startY():this.startY,
-        endX = typeof this.endX==='function'?this.endX(startX):this.endX,
-        endY = typeof this.endY==='function'?this.endY(startY):this.endY;
+    let startX = typeof this.startX==='function'?this.startX(particle.id):this.startX,
+        startY = typeof this.startY==='function'?this.startY(particle.id):this.startY,
+        endX = typeof this.endX==='function'?this.endX(particle.id,startX):this.endX,
+        endY = typeof this.endY==='function'?this.endY(particle.id,startY):this.endY;
 
     particle.x = particle.startX = startX;
     particle.y = particle.startY = startY;
     particle.endX = endX;
     particle.endY = endY;
     if(this.windStatic){
-      particle.windX = typeof this.windX==='function'?this.windX():this.windX;
-      particle.windY = typeof this.windY==='function'?this.windY():this.windY;
+      particle.windX = typeof this.windX==='function'?this.windX(particle.id):this.windX;
+      particle.windY = typeof this.windY==='function'?this.windY(particle.id):this.windY;
     } //end if
     particle.tweenCurrent = 0;
   }
