@@ -30,18 +30,16 @@ export class Ion{
   // transition from that start position to it's destination.
   /* eslint-disable */
   tween(particle,axis,{
-    o=0.3, //optional strength value
+    o, //optional strength value
     d=particle.tweenDuration, //duration
     t=particle.tweenCurrent, //current time
-    type=particle.tweenType, //tween type
+    type=axis==='x'?particle.tweenTypeX:particle.tweenTypeY, //tween type
     b=axis==='x'?particle.startX:particle.startY, //beginning value
     c=axis==='x'?particle.endX-particle.startX:particle.endY-particle.startY
   }={}){
     let result; //returns computed x or y location
 
-    if(type==='linear'){
-      result = c*t/d+b;
-    }else if(type==='ease-in-quad'){
+    if(type==='ease-in-quad'){
       result = c*(t/=d)*t+b;
     }else if(type==='ease-out-quad'){
       result = -c*(t/=d)*(t-2)+b;
@@ -87,90 +85,100 @@ export class Ion{
       result = c*Math.sqrt(1-(t=t/d-1)*t)+b;
     }else if(type==='ease-in-out-circular'){
       result = ((t/=d/2)<1)?-c/2*(Math.sqrt(1-t*t)-1)+b:c/2*(Math.sqrt(1-(t-=2)*t)+1)+b;
-    }else if(type==='ease-in-elastic-loose'){
-      result = this.tween(particle,axis,{o: 0.5,type: 'ease-in-elastic-normal'});
+    }else if(type==='ease-in-elastic-weak'){
+      result = this.tween(particle,axis,{o: 0.5,type: 'ease-in-elastic'});
     }else if(type==='ease-in-elastic'){
       result = (()=>{
-        var s=1.70158,p=0,a=c;
+        let s=1.70158,p=0,a=c;
 
         if(t===0) return b;
         if((t/=d)===1) return b+c;
-        if(!p) p=d*o;
+        if(!p) p=d*(o||0.3);
         if(a < Math.abs(c+0.1)){
           a=c;s=p/4;
         }else{
-          s = p/(2*Math.PI) * Math.asin(c/a);
+          s = p/(2*Math.PI)*Math.asin(c/a);
         } //end if
-        return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+        return -(a*Math.pow(2,10*(t-=1))*Math.sin((t*d-s)*(2*Math.PI)/p))+b;
       })();
     }else if(type==='ease-in-elastic-strong'){
-      result = this.tween(particle,axis,{o: 0.1,type: 'ease-in-elastic-normal'});
-    }else if(type==='ease-out-elastic-loose'){
-      result = this.tween(particle,axis,{o: 0.5,type: 'ease-out-elastic-normal'});
+      result = this.tween(particle,axis,{o: 0.1,type: 'ease-in-elastic'});
+    }else if(type==='ease-out-elastic-weak'){
+      result = this.tween(particle,axis,{o: 0.5,type: 'ease-out-elastic'});
     }else if(type==='ease-out-elastic'){
       result = (()=>{
         var s=1.70158,p=0,a=c;
 
         if (t===0) return b;
         if ((t/=d)===1) return b+c;
-        if (!p) p=d*o;
+        if (!p) p=d*(o||0.3);
         if(a < Math.abs(c+0.1)){
           a=c;s=p/4;
         }else{
-          s = p/(2*Math.PI) * Math.asin(c/a);
+          s = p/(2*Math.PI)*Math.asin(c/a);
         } //end if
-        return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
+        return a*Math.pow(2,-10*t)*Math.sin((t*d-s)*(2*Math.PI)/p)+c+b;
       })();
     }else if(type==='ease-out-elastic-strong'){
-      result = this.tween(particle,axis,{o: 0.1,type: 'ease-out-elastic-normal'});
-    }else if(type==='ease-in-out-elastic-loose'){
-      result = this.tween(particle,axis,{o: 0.5,type: 'ease-in-out-elastic-normal'});
-    }else if(type==='ease-in-out-elastic-normal'){
+      result = this.tween(particle,axis,{o: 0.1,type: 'ease-out-elastic'});
+    }else if(type==='ease-in-out-elastic-weak'){
+      result = this.tween(particle,axis,{o: 0.5,type: 'ease-in-out-elastic'});
+    }else if(type==='ease-in-out-elastic'){
       result = (()=>{
         var s=1.70158,p=0,a=c;
 
         if(t===0) return b;
         if((t/=d/2)===2) return b+c;
-        if(!p) p=d*(o*1.5);
+        if(!p) p=d*((o||0.3)*1.5);
         if(a < Math.abs(c+0.1)){
           a=c;s=p/4;
         }else{
-          s = p/(2*Math.PI) * Math.asin(c/a);
+          s = p/(2*Math.PI)*Math.asin(c/a);
         } //end if
-        if (t < 1) return -0.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
-        return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*0.5 + c + b;
+        if(t < 1) return -0.5*(a*Math.pow(2,10*(t-=1))*Math.sin((t*d-s)*(2*Math.PI)/p))+b;
+        return a*Math.pow(2,-10*(t-=1))*Math.sin((t*d-s)*(2*Math.PI)/p)*0.5+c+b;
       })();
     }else if(type==='ease-in-out-elastic-strong'){
-      result = this.tween(particle,axis,{o: 0.1,type: 'ease-in-out-elastic-normal'});
-
-    //TODO: ease-in-back can have more or less strengths, this one is middle
+      result = this.tween(particle,axis,{o: 0.1,type: 'ease-in-out-elastic'});
+    }else if(type==='ease-in-back-weak'){
+      result = this.tween(particle,axis,{o: 1.30158,type: 'ease-in-back'});
     }else if(type==='ease-in-back'){
-      let s = 1.70158;
+      let s = o||1.70158;
 
-      result = c*(t/=d)*t*((s+1)*t - s) + b;
+      result = c*(t/=d)*t*((s+1)*t-s)+b;
+    }else if(type==='ease-in-back-strong'){
+      result = this.tween(particle,axis,{o: 2.40158,type: 'ease-in-back'});
+    }else if(type==='ease-out-back-weak'){
+      result = this.tween(particle,axis,{o:1.30158,type: 'ease-out-back'});
     }else if(type==='ease-out-back'){
-      let s = 1.70158;
+      let s = o||1.70158;
 
-      result = c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+      result = c*((t=t/d-1)*t*((s+1)*t+s)+1)+b;
+    }else if(type==='ease-out-back-strong'){
+      result = this.tween(particle,axis,{o:2.40158,type: 'ease-out-back'});
+    }else if(type==='ease-in-out-back-weak'){
+      result = this.tween(particle,axis,{o:1.30158,type: 'ease-in-out-back'});
     }else if(type==='ease-in-out-back'){
-      let s = 1.70158;
+      let s = o||1.70158;
 
       if((t/=d/2)<1){
-        result = c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
+        result = c/2*(t*t*(((s*=(1.525))+1)*t-s))+b;
       }else{
-        result = c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
+        result = c/2*((t-=2)*t*(((s*=(1.525))+1)*t+s)+2)+b;
       } //end if
+    }else if(type==='ease-in-out-back-strong'){
+      result = this.tween(particle,axis,{o:2.40158,type: 'ease-in-out-back'});
     }else if(type==='ease-in-bounce'){
       result = c-this.tween(particle,axis,{t:d-t,b:0,c,d,type:'ease-out-bounce'})+b;
     }else if(type==='ease-out-bounce'){
       if ((t/=d) < (1/2.75)) {
         result = c*(7.5625*t*t) + b;
       } else if (t < (2/2.75)) {
-        result = c*(7.5625*(t-=(1.5/2.75))*t + 0.75) + b;
+        result = c*(7.5625*(t-=(1.5/2.75))*t+0.75)+b;
       } else if (t < (2.5/2.75)) {
-        result = c*(7.5625*(t-=(2.25/2.75))*t + 0.9375) + b;
+        result = c*(7.5625*(t-=(2.25/2.75))*t+0.9375)+b;
       } else {
-        result = c*(7.5625*(t-=(2.625/2.75))*t + 0.984375) + b;
+        result = c*(7.5625*(t-=(2.625/2.75))*t+0.984375)+b;
       } //end if
     }else if(type==='ease-in-out-bounce'){
       if(t<d/2){
@@ -178,6 +186,8 @@ export class Ion{
       }else{
         result = this.tween(particle,axis,{t:t*2-d,b:0,c,d,type:'ease-out-bounce'})*0.5+c*0.5+b;
       } //end if
+    }else{ //linear catch-all
+      result = c*t/d+b;
     }//end if
     return result;
   }
@@ -200,26 +210,23 @@ export class Ion{
         image = typeof this.image==='function'?this.image(id):this.image,
         particle = {};
 
-    this.onCreate(particle); //event fired as a new particle is created
+    this.onCreate(); //even fired as a new particle is created
     particle.id = id; //for referencing each particle outside library
     particle.startX = sx;
     particle.startY = sy;
-    particle.originX = particle.startX;
-    particle.originY = particle.startY;
     particle.x = sx;
     particle.y = sy;
     particle.endX = dx;
     particle.endY = dy;
-    particle.terminalX = particle.endX; //original destiation x
-    particle.terminalY = particle.endY; //original destination y
     particle.tweenCurrent = c;
     particle.tweenDuration = d;
-    particle.tweenType = tt;
+    particle.tweenTypeX = typeof this.tweenTypeX==='function'?this.tweenTypeX(id):this.tweenTypeX || tt;
+    particle.tweenTypeY = typeof this.tweenTypeY==='function'?this.tweenTypeY(id):this.tweenTypeY || tt;
     particle.onEnd = this.onParticleEnd;
     particle.size = s; //the particle size
     if(this.windStatic){
-      particle.windX = typeof this.windX==='function'?this.windX():this.windX;
-      particle.windY = typeof this.windY==='function'?this.windY():this.windY;
+      particle.windX = typeof this.windX==='function'?this.windX(id):this.windX;
+      particle.windY = typeof this.windY==='function'?this.windY(id):this.windY;
     }else{
       particle.windX = this.windX||0; //wind functions are ran at runtime
       particle.windY = this.windY||0; //wind function are ran at runtime
@@ -228,7 +235,6 @@ export class Ion{
     particle.image = image; //can be an image or a bit-array
     particle.imageWidth = this.imageWidth; //width in pixels
     particle.imageHeight = this.imageHeight; //height in pixels
-    this.afterCreate(particle); //event fired after a new particle is created
     return particle;
   }
 
@@ -252,10 +258,10 @@ export class Ion{
         endX = typeof this.endX==='function'?this.endX(startX):this.endX,
         endY = typeof this.endY==='function'?this.endY(startY):this.endY;
 
-    particle.x = particle.originX = particle.startX = startX;
-    particle.y = particle.originY = particle.startY = startY;
-    particle.endX = particle.terminalX = endX;
-    particle.endY = particle.terminalY = endY;
+    particle.x = particle.startX = startX;
+    particle.y = particle.startY = startY;
+    particle.endX = endX;
+    particle.endY = endY;
     if(this.windStatic){
       particle.windX = typeof this.windX==='function'?this.windX():this.windX;
       particle.windY = typeof this.windY==='function'?this.windY():this.windY;
@@ -313,6 +319,9 @@ export class Ion{
     } //end if
   }
 
+  // OnMove function is called right before a particle is moved
+  onMove(particle){} //eslint-disable-line
+
   // Draw simply draws a particle
   draw(particle,isClear){
     let p = particle,
@@ -348,6 +357,10 @@ export class Ion{
       }else{ //no sizes given, just allow it to fill with images normal size
         this.ctx.drawImage(image,px,py);
       } //end if
+    }else if(p.circle){
+      this.ctx.beginPath();
+      this.ctx.arc(p.x,p.y,s,0,2*Math.PI);
+      this.ctx.fill();
     }else{
       this.ctx.fillRect(p.x,p.y,s,s);
     } //end if
@@ -357,6 +370,20 @@ export class Ion{
   clear(particle){
     this.draw(particle,true);
   }
+
+  // OnCreate function is called when a particle is created for the first
+  // time. This allows one to keep track of how far into the creation of all
+  // the particles one is given the particle total that they already control.
+  onCreate(){} //eslint-disable-line
+
+  // OnParticleEnd function is called after a particle finishes its tweening
+  // motion. This is merely a template function that is required to be
+  // overridden.
+  onParticleEnd(){} //eslint-disable-line
+
+  // OnEscape function is called after a particle leaves the view space.
+  // This is merely a template function that is required to be overridden.
+  onEscape(){} //eslint-disable-line
 
   // Process is the automatic function that calls the getFrame main
   // function and after updating, queues the next update frame. It will
@@ -373,6 +400,9 @@ export class Ion{
       setTimeout(()=>this.process(),this.tweenSpeed);
     } //end if
   }
+
+  // afterDraw function is called after an entire frame has finished rendering
+  afterDraw(){} //eslint-disable-line
 
   // this clears everything on the screen
   clearFrame(){
@@ -401,27 +431,4 @@ export class Ion{
       this.draw(p);
     });
   }
-
-  // OnMove function is called right before a particle is moved
-  onMove(){} //eslint-disable-line
-
-  // This is an overridable lifecycle hook function that is called right before
-  // any properties are added to a particle and before it begins animating.
-  onCreate(){} //eslint-disable-line
-
-  // This is an overridable lifecycle hook function that is called right after
-  // all properties are added to a particle and before it begins animating.
-  afterCreate(){} //eslint-disable-line
-
-  // OnParticleEnd function is called after a particle finishes its tweening
-  // motion. This is merely a template function that is required to be
-  // overridden.
-  onParticleEnd(){} //eslint-disable-line
-
-  // OnEscape function is called after a particle leaves the view space.
-  // This is merely a template function that is required to be overridden.
-  onEscape(){} //eslint-disable-line
-
-  // afterDraw function is called after an entire frame has finished rendering
-  afterDraw(){} //eslint-disable-line
 } //end class Ion

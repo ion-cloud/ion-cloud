@@ -43,18 +43,24 @@ Ion is a simple particle engine used in 2d animations. In order to help facilita
   - `ease-in-circular`
   - `ease-out-circular`
   - `ease-in-out-circular`
-  - `ease-in-elastic-loose`
+  - `ease-in-elastic-weak`
   - `ease-in-elastic`
   - `ease-in-elastic-strong`
-  - `ease-out-elastic-loose`
+  - `ease-out-elastic-weak`
   - `ease-out-elastic`
   - `ease-out-elastic-strong`
-  - `ease-in-out-elastic-loose`
+  - `ease-in-out-elastic-weak`
   - `ease-in-out-elastic`
   - `ease-in-out-elastic-strong`
+  - `ease-in-back-weak`
   - `ease-in-back`
+  - `ease-in-back-strong`
+  - `ease-out-back-weak`
   - `ease-out-back`
+  - `ease-out-back-strong`
+  - `ease-in-out-back-weak`
   - `ease-in-out-back`
+  - `ease-in-out-back-strong`
   - `ease-in-bounce`
   - `ease-out-bounce`
   - `ease-in-out-bounce`
