@@ -424,8 +424,10 @@ export class Ion{
       if(p.x<0||p.y<0||p.x>this.easel.viewport.w||p.y>this.easel.viewport.h){
         this.onEscape(p);
       } //end if
-      if((p.x|0)!==(p.endX|0)) p.x=this.tween(p,'x');
-      if((p.y|0)!==(p.endY|0)) p.y=this.tween(p,'y');
+      if(p.tweenCurrent<p.tweenDuration){
+        p.x=this.tween(p,'x');
+        p.y=this.tween(p,'y');
+      } //end if
       p.tweenCurrent++;
       if(p.tweenCurrent>=p.tweenDuration&&p.onEnd)p.onEnd.call(this,p);
       this.draw(p);
