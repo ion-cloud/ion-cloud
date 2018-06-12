@@ -361,6 +361,25 @@ export class Ion{
       this.ctx.beginPath();
       this.ctx.arc(p.x,p.y,s,0,2*Math.PI);
       this.ctx.fill();
+    }else if(this.gradient){
+      let gradient = easel.ctx.createRadialGradient(
+        p.x+s/2, p.y+s/2, //start of circle (x,y)
+        0, //radius inside
+        p.x+s/2, p.y+s/2, //end of circle (x,y)
+        s/2 //radius outside
+      );
+
+      if(typeof this.gradient==='function'){
+        let colors = this.gradient(p);
+
+        gradient.addColorStop(0,colors[0]);
+        gradient.addColorStop(1,colors[1]);
+      }else{
+        gradient.addColorStop(0,this.gradient[0]);
+        gradient.addColorStop(1,this.gradient[1]);
+      }
+      this.ctx.fillStyle = gradient;
+      this.ctx.fillRect(p.x,p.y,s,s);
     }else{
       this.ctx.fillRect(p.x,p.y,s,s);
     } //end if
