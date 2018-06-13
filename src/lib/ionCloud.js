@@ -37,10 +37,19 @@ export class IonCloud{
       this.easel.ctx.fillRect(0,0,this.easel.viewport.w,this.easel.viewport.h);
     } //end if
   }
-  clean(){
+  clean(state){
 
-    //eslint-disable-next-line no-return-assign
-    this.collection.forEach(ion=> ion.active = false);
+    // if state is passed, then all animations with that state are deactivated
+    // otherwise, it deactivates all animations
+    if(state){
+      this.collection.forEach(animation=>{
+        if(animation.states.include(state)) animation.active = false;
+      });
+    }else{
+
+      //eslint-disable-next-line no-return-assign
+      this.collection.forEach(animations=> animations.active = false);
+    } //end if
   }
   draw(){
     this.clearScene();
