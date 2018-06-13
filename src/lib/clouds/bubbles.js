@@ -45,6 +45,5 @@ export function bubbles(parameters){
   }else{
     bubbles.populate();
   } //end if
-  console.log('bubbles',bubbles);
   return bubbles;
 } //end bubbles()
