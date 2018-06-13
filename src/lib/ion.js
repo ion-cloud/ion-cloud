@@ -362,7 +362,7 @@ export class Ion{
       this.ctx.arc(p.x,p.y,s,0,2*Math.PI);
       this.ctx.fill();
     }else if(this.gradient){
-      let gradient = easel.ctx.createRadialGradient(
+      let gradient = this.ctx.createRadialGradient(
         p.x+s/2, p.y+s/2, //start of circle (x,y)
         0, //radius inside
         p.x+s/2, p.y+s/2, //end of circle (x,y)
