@@ -19,8 +19,8 @@ export function bubbles(parameters){
   bubbles.clear = false;
   bubbles.startX = ()=> this.camera.x+startX+Math.random()*width;
   bubbles.startY = ()=> this.camera.y+startY+Math.random()*height;
-  bubbles.endX = startX=> startX;
-  bubbles.endY = startY=> startY-distance;
+  bubbles.endX = (id,startX)=> startX;
+  bubbles.endY = (id,startY)=> startY-distance;
   bubbles.size = ()=> Math.random()*2;
   bubbles.color = atom=>{
     let a, halfTween = bubbles.tweenDuration/2;
