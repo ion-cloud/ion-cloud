@@ -52,18 +52,27 @@ export class IonCloud{
     } //end if
   }
   draw(){
+    let sceneChanged = false;
+
     this.clearScene();
     if(this.beforeDraw[this.state]) this.beforeDraw[this.state]();
     this.collection.forEach((animation,index,collection)=>{
       if(animation.states.includes(this.state)){ //only render if its in current state
-        if(animation.finished){
-          if(typeof animation.onFinished === 'function') animation.onFinished(animation);
-          collection.splice(index,1);
+        if(animation.finished&&typeof animation.onFinished === 'function'){
+          sceneChanged = true;
+          animation.onFinished(animation);
+        }else if(animation.finished){
+          sceneChanged = true;
         }else if(animation.active){
           animation.getFrame(animation);
         } //end if
       } //end if
     });
+
+    // if something finished
+    if(sceneChanged){
+      this.collection = this.collection.filter(animation=> !animation.finished);
+    } //end if
     requestAnimationFrame(()=> this.draw());
   }
 }
