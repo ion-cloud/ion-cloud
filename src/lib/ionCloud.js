@@ -43,7 +43,7 @@ export class IonCloud{
     // otherwise, it deactivates all animations
     if(state){
       this.collection.forEach(animation=>{
-        if(animation.states.include(state)) animation.active = false;
+        if(animation.states.includes(state)) animation.active = false;
       });
     }else{
 
