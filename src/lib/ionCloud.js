@@ -18,7 +18,7 @@ export class IonCloud{
     this.state = 'initial';
   }
   animate(type,parameters){
-    let ion = this.collection.find(ion=> !ion.active); //inactive
+    let ion = this.collection.find(animation=> !animation.active); //inactive
 
     if(!ion){
       this.collection.push(this.clouds[type].call(this,parameters));
@@ -57,12 +57,10 @@ export class IonCloud{
     this.clearScene();
     if(this.beforeDraw[this.state]) this.beforeDraw[this.state]();
     this.collection.forEach((animation,index,collection)=>{
+      if(animation.finished) sceneChanged = true;
       if(animation.states.includes(this.state)){ //only render if its in current state
         if(animation.finished&&typeof animation.onFinished === 'function'){
-          sceneChanged = true;
           animation.onFinished(animation);
-        }else if(animation.finished){
-          sceneChanged = true;
         }else if(animation.active){
           animation.getFrame(animation);
         } //end if
