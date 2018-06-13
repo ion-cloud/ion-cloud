@@ -7,8 +7,8 @@ export class IonCloud{
     this.easel = easel;
     this.Ion = Ion;
     this.camera = {
-      x: easel.viewport.w/2,
-      y: easel.viewport.h/2,
+      x: 0,
+      y: 0,
       dx: 0, //direction x
       dy: 0 //direction y
     };
