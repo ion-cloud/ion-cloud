@@ -48,10 +48,10 @@ export class IonCloud{
     this.collection.forEach((animation,index,collection)=>{
       if(animation.states.includes(this.state)){ //only render if its in current state
         if(animation.finished){
-          if(typeof animation.onFinished === 'function') animation.onFinished();
+          if(typeof animation.onFinished === 'function') animation.onFinished(animation);
           collection.splice(index,1);
         }else if(animation.active){
-          animation.getFrame();
+          animation.getFrame(animation);
         } //end if
       } //end if
     });
