@@ -275,9 +275,9 @@ export class Ion{
   // action continues until the total particle quantity is reached.
   populate(wait){
     if(!wait){
-      this.collection = Array.from(new Array(this.quantity),(ignore,index)=>{
-        return this.getNew(index);
-      });
+      this.collection = new Array(this.quantity)
+        .fill(null)
+        .map((ignore,index)=> this.getNew(index));
     }else{
       this.collection.push(this.getNew(this.collection.length));
       if(this.collection.length<this.quantity){
