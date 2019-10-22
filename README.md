@@ -30,4 +30,19 @@ Ion Cloud is a JavaScript game engine. Alternatively you can individually choose
 If you need help setting up a project using `@ion-cloud/core` you can use a scaffolding engine like `slush`. For more information see [this project](https://www.npmjs.com/package/slush-jugs).
 
 ## Setup
-You can install the entire JavaScript `ion-cloud` engine simply by `npm i @ion-cloud/core` and then importing only what you need into your project with `import {Easel,Ion} from '@ion-cloud/core';` Alternatively you can install only the components you need such as `npm i -g @ion-cloud/dice`.
+You can install the entire JavaScript `ion-cloud` engine simply by
+```
+npm i @ion-cloud/core
+```
+and then importing only what you need into your project with
+```
+import {Easel,Ion} from '@ion-cloud/core';
+```
+Alternatively you can install only the components you need such as 
+```
+npm i -g @ion-cloud/dice
+```
+And then using just those in your project
+```
+import {Dice} from '@ion-cloud/dice';
+```
