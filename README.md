@@ -4,12 +4,12 @@ JavaScript game engine by Nathaniel Inman.
 ![Example](https://media.giphy.com/media/1mhjCBjncfr37OiNd1/giphy.gif)
 
 ## Description
-Ion Cloud is a JavaScript game engine. Alternatively you can individually choose and load just the components you want:
+Ion Cloud is a JavaScript game engine available on npm at `@ion-cloud/core`. Alternatively you can individually choose and load just the components you need:
   - **Easel** : *sets up a canvas that can fill a screen and automatically resize*
     - [here is the documentation](https://github.com/ion-cloud/easel) `@ion-cloud/easel`
   - **Ion** : *tweaning and basic animation instance*
     - [here is the documentation](https://github.com/ion-cloud/ion) `@ion-cloud/ion`
-  - **Ion Cloud** : *animation collections and scene management*
+  - **Cloud** : *animation collections and scene management*
     - [here is the documentation](https://github.com/ion-cloud/cloud) `@ion-cloud/cloud`
   - **Ink** : *A tiny color manipulation and translation library with robust validation and error handling that shines in places where you can't trust the input color or random generation and games*
     - [here is the documentation](https://github.com/ion-cloud/ink) `@ion-cloud/ink`
