@@ -26,6 +26,8 @@ Ion Cloud is a JavaScript game engine available on npm at `@ion-cloud/core`. Alt
   - **Dice**: *take a complex dice string and compute results based on it.*
     - [here is the documentation](https://github.com/ion-cloud/dice) `@ion-cloud/dice`
     - `3d8+23-2d4` would roll 3 8-sided dice, add 23 then subtract the results of 2 rolled 4-sided dice
+  - **Compass**: *JavaScript mapping classes and random generation algorithms.*
+    - [here is the documentation](https://github.com/ion-cloud/compass) `@ion-cloud/compass`
 
 If you need help setting up a project using `@ion-cloud/core` you can use a scaffolding engine like `slush`. For more information see [this project](https://www.npmjs.com/package/slush-jugs).
 
