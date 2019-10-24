@@ -1,8 +1,11 @@
-import {Dice} from '@ion-cloud/dice';
-import * as Ink from '@ion-cloud/ink';
-import {Easel} from '@ion-cloud/easel';
-import {Phaser} from '@ion-cloud/phaser';
-import {Ion} from '@ion-cloud/ion';
-import {IonCloud} from '@ion-cloud/cloud';
-
-export {Dice,Ink,Easel,Phaser,Ion,IonCloud};
+export {Dice} from '@ion-cloud/dice';
+export {
+  ink,
+  convert2rgba,convert2rgb,convert2hsba,convert2hsva,
+  convert2hsb,convert2hsv,convert2hsla,convert2hsl,
+  convert2hex,convert2cmyk
+}from '@ion-cloud/ink';
+export {Easel,Easel3d} from '@ion-cloud/easel';
+export {Phaser} from '@ion-cloud/phaser';
+export {Ion} from '@ion-cloud/ion';
+export {IonCloud} from '@ion-cloud/cloud';
