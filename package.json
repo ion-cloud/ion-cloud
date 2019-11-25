@@ -1,6 +1,6 @@
 {
   "name": "@ion-cloud/core",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "JavaScript game engine with animation, scene management & map generation",
   "main": "index.js",
   "scripts": {
