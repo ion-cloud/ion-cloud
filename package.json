@@ -29,7 +29,7 @@
   "homepage": "https://github.com/ion-cloud/ion-cloud#readme",
   "dependencies": {
     "@ion-cloud/cloud": "^1.0.0",
-    "@ion-cloud/compass": "^1.6.1",
+    "@ion-cloud/compass": "^1.6.2",
     "@ion-cloud/dice": "^1.2.2",
     "@ion-cloud/easel": "^1.0.2",
     "@ion-cloud/ink": "^1.0.0",
