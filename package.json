@@ -30,7 +30,7 @@
   "dependencies": {
     "@ion-cloud/cloud": "^1.0.0",
     "@ion-cloud/compass": "^1.6.4",
-    "@ion-cloud/dice": "^1.2.2",
+    "@ion-cloud/dice": "^1.2.3",
     "@ion-cloud/easel": "^1.0.2",
     "@ion-cloud/ink": "^1.0.0",
     "@ion-cloud/ion": "^1.0.0",
