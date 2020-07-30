@@ -34,6 +34,7 @@
     "@ion-cloud/easel": "^1.0.2",
     "@ion-cloud/ink": "^1.0.0",
     "@ion-cloud/ion": "^1.0.0",
-    "@ion-cloud/phaser": "^1.0.0"
+    "@ion-cloud/phaser": "^1.0.0",
+    "@ion-cloud/prefabs": "^1.0.0"
   }
 }
