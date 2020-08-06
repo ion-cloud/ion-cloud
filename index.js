@@ -5,7 +5,7 @@ export {
   convert2hsb,convert2hsv,convert2hsla,convert2hsl,
   convert2hex,convert2cmyk
 }from '@ion-cloud/ink';
-export {Easel,Easel3d} from '@ion-cloud/easel';
+export {Easel,Easel3d,EaselWebGL} from '@ion-cloud/easel';
 export {Phaser} from '@ion-cloud/phaser';
 export {Ion} from '@ion-cloud/ion';
 export {IonCloud} from '@ion-cloud/cloud';
