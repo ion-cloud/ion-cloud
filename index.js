@@ -9,4 +9,4 @@ export {Easel,Easel3d,EaselWebGL} from '@ion-cloud/easel';
 export {Phaser} from '@ion-cloud/phaser';
 export {Ion} from '@ion-cloud/ion';
 export {IonCloud} from '@ion-cloud/cloud';
-export {Map,Sector,maps} from '@ion-cloud/compass';
+export {Map,Sector,maps,BasicWebGLDisplay,BasicDisplay} from '@ion-cloud/compass';

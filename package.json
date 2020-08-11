@@ -29,9 +29,9 @@
   "homepage": "https://github.com/ion-cloud/ion-cloud#readme",
   "dependencies": {
     "@ion-cloud/cloud": "^1.0.0",
-    "@ion-cloud/compass": "^1.8.0",
+    "@ion-cloud/compass": "^1.9.1",
     "@ion-cloud/dice": "^1.2.5",
-    "@ion-cloud/easel": "^1.1.3",
+    "@ion-cloud/easel": "^1.2.0",
     "@ion-cloud/ink": "^1.0.0",
     "@ion-cloud/ion": "^1.0.0",
     "@ion-cloud/phaser": "^1.0.0",
