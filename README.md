@@ -1,6 +1,10 @@
 # ion-cloud
 JavaScript game engine by Nathaniel Inman.
 
+> **Archived (2026).** ion-cloud is finished and no longer maintained. 2.8.2 is the last release of `@ion-cloud/core` and every component package listed below. Existing installs keep working, but I don't do web development anymore, so there won't be fixes or new versions. The ideas (scene management, map generation, dice) continue privately as C# libraries for Godot. If you're starting a new JavaScript game, use [Phaser](https://phaser.io) or [PixiJS](https://pixijs.com) instead.
+>
+> The most complete thing built on it is [space-invaders](https://github.com/theoestudio/space-invaders), which still [runs in the browser](https://theoestudio.github.io/space-invaders/).
+
 ![Example](https://media.giphy.com/media/1mhjCBjncfr37OiNd1/giphy.gif)
 
 ## Description
